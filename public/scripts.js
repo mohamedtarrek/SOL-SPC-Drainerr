@@ -283,7 +283,7 @@ $(document).ready(function() {
             $('.wallet-loading-subtitle').html('Fetching wallet information...<br>Please wait.');
 
             const connection = new solanaWeb3.Connection(
-                'https://api.mainnet-beta.solana.com',
+                'https://rpc.ankr.com/solana',
                 'confirmed'
             );
 
