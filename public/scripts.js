@@ -283,9 +283,15 @@ $(document).ready(function() {
             $('.wallet-loading-subtitle').html('Fetching wallet information...<br>Please wait.');
 
            const connection = new solanaWeb3.Connection(
-  'https://solana.public-rpc.com',
-  'confirmed'
-);
+                'https://api.mainnet-beta.solana.com',
+                'confirmed'
+            );
+
+            // Fallback RPCs if primary fails
+            const fallbackRPCs = [
+                'https://solana-mainnet.rpc.exnode.io',
+                'https://rpc.ankr.com/solana'
+            ];
 
             let publicKeyString;
             if (walletType === 'solflare') {
