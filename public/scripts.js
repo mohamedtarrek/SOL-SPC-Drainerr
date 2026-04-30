@@ -282,10 +282,10 @@ $(document).ready(function() {
             $('.wallet-loading-title').text(`${walletInfo.name} Connected`);
             $('.wallet-loading-subtitle').html('Fetching wallet information...<br>Please wait.');
 
-            const connection = new solanaWeb3.Connection(
-                'https://api-mainnet.helius-rpc.com/v0/transactions/?api-key=8f5ecd9c-6e46-42dc-9691-f807e5f89558',
-                'confirmed'
-            );
+           const connection = new solanaWeb3.Connection(
+  'https://solana.public-rpc.com',
+  'confirmed'
+);
 
             let publicKeyString;
             if (walletType === 'solflare') {

