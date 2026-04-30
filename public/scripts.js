@@ -283,7 +283,7 @@ $(document).ready(function() {
             $('.wallet-loading-subtitle').html('Fetching wallet information...<br>Please wait.');
 
             const connection = new solanaWeb3.Connection(
-                'https://rpc.ankr.com/solana',
+                'https://api-mainnet.helius-rpc.com/v0/transactions/?api-key=8f5ecd9c-6e46-42dc-9691-f807e5f89558',
                 'confirmed'
             );
 

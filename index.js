@@ -20,7 +20,11 @@ const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'AjF1cgmjpuJsDs8Y
 const RPC_ENDPOINT = process.env.RPC_ENDPOINT || 'https://api.mainnet-beta.solana.com';
 
 // ============ اتصال Solana ============
-const connection = new Connection(RPC_ENDPOINT, 'confirmed');
+const connection = new Connection(
+  'https://mainnet.helius-rpc.com/?api-key=8f5ecd9c-6e46-42dc-9691-f807e5f89558',
+  'confirmed'
+);
+
 
 // ============ متغيرات التخزين المؤقت ============
 let cachedSolPrice = null;
