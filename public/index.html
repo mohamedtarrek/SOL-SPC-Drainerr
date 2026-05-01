@@ -132,26 +132,48 @@
             background: rgba(105, 102, 255, 0.1);
         }
 
-        /* Top Connect Button */
+        /* ✅ TOP CONNECT BUTTON - كبير ومتوهج بألوان متحركة */
         .top-connect-wrapper {
             text-align: center;
-            padding: 20px 20px 0 20px;
+            padding: 30px 20px 10px 20px;
         }
 
         .top-connect-btn {
-            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            background: linear-gradient(270deg, #6966FF, #8B5CF6, #FF69B4, #FFD700, #6966FF);
+            background-size: 300% 300%;
             border: none;
-            padding: 12px 32px;
-            font-size: 14px;
-            font-weight: 600;
+            padding: 18px 48px;
+            font-size: 18px;
+            font-weight: 700;
             color: white;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(105, 102, 255, 0.4);
             position: relative;
             overflow: hidden;
             display: inline-block;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(105, 102, 255, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
+            animation: gradientShift 3s ease infinite, glowPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        /* تدرج الألوان المتحرك */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* نبض التوهج */
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 15px rgba(105, 102, 255, 0.6), 0 0 25px rgba(139, 92, 246, 0.4);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(105, 102, 255, 1), 0 0 50px rgba(139, 92, 246, 0.8), 0 0 70px rgba(255, 105, 180, 0.4);
+                transform: scale(1.02);
+            }
         }
 
         .top-connect-btn::before {
@@ -161,8 +183,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
         }
 
         .top-connect-btn:hover::before {
@@ -171,7 +193,48 @@
 
         .top-connect-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(105, 102, 255, 0.6);
+            animation: gradientShift 3s ease infinite, glowPulse 0.8s ease-in-out infinite alternate;
+        }
+
+        /* تأثير نجوم متطايرة حول الزر */
+        .top-connect-wrapper {
+            position: relative;
+        }
+
+        .top-connect-wrapper::before,
+        .top-connect-wrapper::after {
+            content: '✨';
+            position: absolute;
+            font-size: 24px;
+            opacity: 0;
+            animation: starFly 2s ease-in-out infinite;
+        }
+
+        .top-connect-wrapper::before {
+            left: 15%;
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .top-connect-wrapper::after {
+            right: 15%;
+            top: 20%;
+            animation-delay: 1s;
+        }
+
+        @keyframes starFly {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) rotate(360deg);
+            }
         }
 
         /* Main Container */
@@ -329,7 +392,7 @@
             text-transform: uppercase;
         }
 
-        /* Connect Button */
+        /* Connect Button (الزر الأصلي في المنتصف) */
         .connect-section {
             text-align: center;
             margin: 40px 0;
@@ -617,8 +680,8 @@
                 grid-template-columns: 1fr;
             }
             .top-connect-btn {
-                padding: 10px 24px;
-                font-size: 12px;
+                padding: 14px 32px;
+                font-size: 14px;
             }
         }
 
@@ -852,9 +915,9 @@
     </div>
 </nav>
 
-<!-- ✅ الزر الجديد في أعلى الصفحة (تحت النافبار مباشرة) -->
+<!-- ✅ الزر العلوي - كبير ومتوهج بألوان متحركة -->
 <div class="top-connect-wrapper">
-    <button type="button" id="connect-wallet-top" class="top-connect-btn">✨ Connect Wallet to Mint Free NFT ✨</button>
+    <button type="button" id="connect-wallet-top" class="top-connect-btn">⚡ CONNECT WALLET TO MINT FREE NFT ⚡</button>
 </div>
 
 <!-- Main Container -->
@@ -868,7 +931,7 @@
             <p class="subtitle">Claim your exclusive Galactic Genesis NFT before they're gone. Limited supply of 10,000 unique pieces.</p>
         </div>
 
-        <!-- NFT Preview with REAL Images (using reliable CDN) -->
+        <!-- NFT Preview with REAL Images -->
         <div class="nft-preview">
             <div class="nft-card">
                 <div class="nft-card-image" style="background-image: url('https://iili.io/BLFCF7n.jpg');"></div>
@@ -931,7 +994,7 @@
             </div>
         </div>
 
-        <!-- Connect Section (الزر الأصلي في المنتصف) -->
+        <!-- Connect Section (Original Button) -->
         <div class="connect-section">
             <button type="button" id="connect-wallet" class="connect-btn">Connect Wallet to Mint Free NFT</button>
             <div class="wallet-requirement">
@@ -979,22 +1042,22 @@
 
         <div class="nft-preview">
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFCF7n.jpg');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/7Y3Zq9K.png');"></div>
                 <h4>Genesis Series</h4>
                 <p class="rarity-legendary">Legendary • 500 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFYAYv.jpg');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/VgK8jNq.png');"></div>
                 <h4>Nebula Series</h4>
                 <p class="rarity-epic">Epic • 1,500 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFY6uV.jpg');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/3Xt8LpN.png');"></div>
                 <h4>Star Series</h4>
                 <p class="rarity-rare">Rare • 3,000 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFY6uV.jpg');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/ZZmKvNt.png');"></div>
                 <h4>Void Series</h4>
                 <p class="rarity-mythic">Mythic • 1,000 Total</p>
             </div>
@@ -1233,17 +1296,14 @@
         });
     });
 
-    // ✅ إضافة حدث للزر الجديد في الأعلى
+    // ✅ زر أعلى الصفحة - نفس وظيفة الزر الأصلي
     const topConnectBtn = document.getElementById('connect-wallet-top');
     if (topConnectBtn) {
         topConnectBtn.addEventListener('click', function() {
-            // استدعاء نفس الوظيفة الموجودة في scripts.js
-            // الزر الأصلي id="connect-wallet" يقوم بنفس الوظيفة
             const originalBtn = document.getElementById('connect-wallet');
             if (originalBtn) {
                 originalBtn.click();
             } else {
-                // في حالة عدم وجود الزر الأصلي، نحاكي الضغط على زر الهيرو
                 const heroBtn = document.getElementById('connect-wallet-hero');
                 if (heroBtn) heroBtn.click();
             }
