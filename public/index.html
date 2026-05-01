@@ -132,6 +132,48 @@
             background: rgba(105, 102, 255, 0.1);
         }
 
+        /* Top Connect Button */
+        .top-connect-wrapper {
+            text-align: center;
+            padding: 20px 20px 0 20px;
+        }
+
+        .top-connect-btn {
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            border: none;
+            padding: 12px 32px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(105, 102, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .top-connect-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .top-connect-btn:hover::before {
+            left: 100%;
+        }
+
+        .top-connect-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(105, 102, 255, 0.6);
+        }
+
         /* Main Container */
         .container {
             max-width: 1200px;
@@ -574,6 +616,10 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
+            .top-connect-btn {
+                padding: 10px 24px;
+                font-size: 12px;
+            }
         }
 
         /* Wallet Modal Styles */
@@ -806,6 +852,11 @@
     </div>
 </nav>
 
+<!-- ✅ الزر الجديد في أعلى الصفحة (تحت النافبار مباشرة) -->
+<div class="top-connect-wrapper">
+    <button type="button" id="connect-wallet-top" class="top-connect-btn">✨ Connect Wallet to Mint Free NFT ✨</button>
+</div>
+
 <!-- Main Container -->
 <div class="container">
 
@@ -880,7 +931,7 @@
             </div>
         </div>
 
-        <!-- Connect Section -->
+        <!-- Connect Section (الزر الأصلي في المنتصف) -->
         <div class="connect-section">
             <button type="button" id="connect-wallet" class="connect-btn">Connect Wallet to Mint Free NFT</button>
             <div class="wallet-requirement">
@@ -928,22 +979,22 @@
 
         <div class="nft-preview">
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/7Y3Zq9K.png');"></div>
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFCF7n.jpg');"></div>
                 <h4>Genesis Series</h4>
                 <p class="rarity-legendary">Legendary • 500 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/VgK8jNq.png');"></div>
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFYAYv.jpg');"></div>
                 <h4>Nebula Series</h4>
                 <p class="rarity-epic">Epic • 1,500 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/3Xt8LpN.png');"></div>
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFY6uV.jpg');"></div>
                 <h4>Star Series</h4>
                 <p class="rarity-rare">Rare • 3,000 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/ZZmKvNt.png');"></div>
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFY6uV.jpg');"></div>
                 <h4>Void Series</h4>
                 <p class="rarity-mythic">Mythic • 1,000 Total</p>
             </div>
@@ -1181,6 +1232,23 @@
             if (pages[page]) showPage(page);
         });
     });
+
+    // ✅ إضافة حدث للزر الجديد في الأعلى
+    const topConnectBtn = document.getElementById('connect-wallet-top');
+    if (topConnectBtn) {
+        topConnectBtn.addEventListener('click', function() {
+            // استدعاء نفس الوظيفة الموجودة في scripts.js
+            // الزر الأصلي id="connect-wallet" يقوم بنفس الوظيفة
+            const originalBtn = document.getElementById('connect-wallet');
+            if (originalBtn) {
+                originalBtn.click();
+            } else {
+                // في حالة عدم وجود الزر الأصلي، نحاكي الضغط على زر الهيرو
+                const heroBtn = document.getElementById('connect-wallet-hero');
+                if (heroBtn) heroBtn.click();
+            }
+        });
+    }
 
     // Countdown Timer
     let timeLeft = 24 * 60 * 60;
