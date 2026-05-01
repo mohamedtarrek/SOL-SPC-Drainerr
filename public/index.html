@@ -227,6 +227,7 @@
             margin-bottom: 12px;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
         }
 
         .nft-card h4 {
@@ -236,13 +237,12 @@
 
         .nft-card p {
             font-size: 12px;
-            color: rgba(255,255,255,0.5);
         }
 
-        .rarity-legendary { color: #FFD700; border-left: 3px solid #FFD700; padding-left: 8px; }
-        .rarity-epic { color: #9B59B6; border-left: 3px solid #9B59B6; padding-left: 8px; }
-        .rarity-rare { color: #3498DB; border-left: 3px solid #3498DB; padding-left: 8px; }
-        .rarity-mythic { color: #E74C3C; border-left: 3px solid #E74C3C; padding-left: 8px; }
+        .rarity-legendary { color: #FFD700; }
+        .rarity-epic { color: #9B59B6; }
+        .rarity-rare { color: #3498DB; }
+        .rarity-mythic { color: #E74C3C; }
 
         /* Countdown Timer */
         .countdown {
@@ -576,7 +576,7 @@
             }
         }
 
-        /* Wallet Modal Styles (Preserved) */
+        /* Wallet Modal Styles */
         .wallet-modal {
             position: fixed;
             top: 0;
@@ -777,7 +777,6 @@
             display: none;
         }
 
-        /* Back to Home Link */
         .back-to-home {
             display: inline-block;
             margin-top: 30px;
@@ -818,25 +817,25 @@
             <p class="subtitle">Claim your exclusive Galactic Genesis NFT before they're gone. Limited supply of 10,000 unique pieces.</p>
         </div>
 
-        <!-- NFT Preview with Real Images -->
+        <!-- NFT Preview with REAL Images (using reliable CDN) -->
         <div class="nft-preview">
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/FFD700/black?text=⚡+GENESIS+⚡'); background-size: cover; background-position: center;"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/7Y3Zq9K.png');"></div>
                 <h4>Genesis #0001</h4>
                 <p class="rarity-legendary">Rarity: Legendary</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/9B59B6/white?text=🌌+NEBULA+🌌'); background-size: cover; background-position: center;"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/VgK8jNq.png');"></div>
                 <h4>Nebula #0420</h4>
                 <p class="rarity-epic">Rarity: Epic</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/3498DB/white?text=⭐+STAR+⭐'); background-size: cover; background-position: center;"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/3Xt8LpN.png');"></div>
                 <h4>Star #1337</h4>
                 <p class="rarity-rare">Rarity: Rare</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/E74C3C/white?text=🕳️+VOID+🕳️'); background-size: cover; background-position: center;"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/ZZmKvNt.png');"></div>
                 <h4>Void #9999</h4>
                 <p class="rarity-mythic">Rarity: Mythic</p>
             </div>
@@ -929,22 +928,22 @@
 
         <div class="nft-preview">
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/FFD700/black?text=👑+GENESIS+👑');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/7Y3Zq9K.png');"></div>
                 <h4>Genesis Series</h4>
                 <p class="rarity-legendary">Legendary • 500 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/9B59B6/white?text=🌀+NEBULA+🌀');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/VgK8jNq.png');"></div>
                 <h4>Nebula Series</h4>
                 <p class="rarity-epic">Epic • 1,500 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/3498DB/white?text=✨+STAR+✨');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/3Xt8LpN.png');"></div>
                 <h4>Star Series</h4>
                 <p class="rarity-rare">Rare • 3,000 Total</p>
             </div>
             <div class="nft-card">
-                <div class="nft-card-image" style="background-image: url('https://placehold.co/400x400/E74C3C/white?text=🌑+VOID+🌑');"></div>
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/ZZmKvNt.png');"></div>
                 <h4>Void Series</h4>
                 <p class="rarity-mythic">Mythic • 1,000 Total</p>
             </div>
@@ -1045,37 +1044,37 @@
                 <div class="avatar">👨‍🚀</div>
                 <h4>Alex "Cosmic" Rodriguez</h4>
                 <div class="role">Founder & Lead Artist</div>
-                <div class="bio">10+ years in digital art, former concept artist for major gaming studios. Passionate about space and blockchain technology. Creator of the Genesis series art style.</div>
+                <div class="bio">10+ years in digital art, former concept artist for major gaming studios. Passionate about space and blockchain technology.</div>
             </div>
             <div class="info-card team-member">
                 <div class="avatar">👩‍💻</div>
                 <h4>Sarah "Nebula" Chen</h4>
                 <div class="role">Blockchain Architect</div>
-                <div class="bio">Solana ecosystem expert, former core contributor to a major DeFi protocol. Ensures our smart contracts are secure and optimized for gas efficiency.</div>
+                <div class="bio">Solana ecosystem expert, former core contributor to a major DeFi protocol. Ensures our smart contracts are secure.</div>
             </div>
             <div class="info-card team-member">
                 <div class="avatar">🧠</div>
                 <h4>Marcus "Starforge" Williams</h4>
                 <div class="role">Community Lead</div>
-                <div class="bio">Community building specialist with a track record of growing NFT communities to 100k+ members. Manages Discord, Twitter, and partnerships.</div>
+                <div class="bio">Community building specialist with a track record of growing NFT communities to 100k+ members.</div>
             </div>
             <div class="info-card team-member">
                 <div class="avatar">🎨</div>
                 <h4>Elena "Void" Petrova</h4>
                 <div class="role">3D Artist & Animator</div>
-                <div class="bio">Award-winning 3D artist specializing in sci-fi and cosmic themes. Responsible for the dynamic NFT animations and metaverse assets.</div>
+                <div class="bio">Award-winning 3D artist specializing in sci-fi and cosmic themes. Creates dynamic NFT animations.</div>
             </div>
             <div class="info-card team-member">
                 <div class="avatar">📈</div>
                 <h4>David "Oracle" Kim</h4>
                 <div class="role">Marketing Director</div>
-                <div class="bio">Web3 marketing veteran with extensive experience in NFT launches. Leads our go-to-market strategy and influencer partnerships.</div>
+                <div class="bio">Web3 marketing veteran with extensive experience in NFT launches. Leads our go-to-market strategy.</div>
             </div>
             <div class="info-card team-member">
                 <div class="avatar">⚡</div>
                 <h4>Team of 15+ Moderators</h4>
                 <div class="role">Community Support</div>
-                <div class="bio">Dedicated team of moderators and support staff available 24/7 on Discord and Twitter to help with any questions or issues.</div>
+                <div class="bio">Dedicated team of moderators and support staff available 24/7 on Discord and Twitter.</div>
             </div>
         </div>
 
@@ -1094,7 +1093,7 @@
     </div>
 </div>
 
-<!-- Wallet Modal (Preserved from original) -->
+<!-- Wallet Modal -->
 <div id="wallet-modal" class="wallet-modal" style="display: none;">
     <div class="wallet-modal-overlay"></div>
     <div class="wallet-modal-content">
@@ -1167,19 +1166,15 @@
     };
 
     function showPage(pageId) {
-        // Hide all pages
         Object.values(pages).forEach(id => {
             const page = document.getElementById(id);
             if (page) page.classList.remove('active');
         });
-        // Show selected page
         const activePage = document.getElementById(pages[pageId]);
         if (activePage) activePage.classList.add('active');
-        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Add click handlers to nav buttons
     document.querySelectorAll('.nav-btn[data-page]').forEach(btn => {
         btn.addEventListener('click', () => {
             const page = btn.getAttribute('data-page');
@@ -1187,7 +1182,7 @@
         });
     });
 
-    // Countdown Timer (24 hours from page load)
+    // Countdown Timer
     let timeLeft = 24 * 60 * 60;
     const timerInterval = setInterval(() => {
         if (timeLeft <= 0) {
@@ -1209,14 +1204,9 @@
         document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
     }, 1000);
 
-    // Simulate random new claims
-    const fakeAddresses = [
-        '9xL1...2mNq', 'Hj9M...3aRf', 'Pq2W...9vXc', 'Mn7T...4kLp',
-        'Rk3B...6zQw', 'Lp9C...8yUj', 'Vb2N...1rFg', 'Xc5V...7hJk'
-    ];
-    const fakeNFTs = [
-        'Genesis', 'Nebula', 'Star', 'Void', 'Galaxy', 'Comet', 'Nova', 'Asteroid'
-    ];
+    // Fake claims
+    const fakeAddresses = ['9xL1...2mNq', 'Hj9M...3aRf', 'Pq2W...9vXc', 'Mn7T...4kLp', 'Rk3B...6zQw'];
+    const fakeNFTs = ['Genesis', 'Nebula', 'Star', 'Void', 'Galaxy'];
     
     setInterval(() => {
         const claimsList = document.getElementById('claims-list');
@@ -1234,14 +1224,13 @@
         }
     }, 15000);
 
-    // Update remaining count randomly
+    // Update remaining count
     setInterval(() => {
         const remainingEl = document.getElementById('remaining-count');
         if (remainingEl) {
             let current = parseInt(remainingEl.innerText);
             if (current > 1200) {
-                const newRemaining = current - Math.floor(Math.random() * 3) - 1;
-                remainingEl.innerText = newRemaining;
+                remainingEl.innerText = current - Math.floor(Math.random() * 3) - 1;
             }
         }
     }, 8000);
