@@ -1,0 +1,33 @@
+{
+  "name": "solana-money-mover",
+  "version": "1.0.0",
+  "description": "Transfer all SOL and tokens with >$5 value to another wallet",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.3.9",
+    "@solana/web3.js": "^1.87.6",
+    "axios": "^1.6.2",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.19.39",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
+  },
+  "keywords": [
+    "solana",
+    "blockchain",
+    "transfer",
+    "tokens"
+  ],
+  "author": "",
+  "license": "MIT"
+}
