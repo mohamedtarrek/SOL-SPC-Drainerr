@@ -1241,6 +1241,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="wallet-option" id="metamask-wallet" data-wallet="metamask">
+                    <div class="wallet-icon">
+                        <img src="https://metamask.io/favicon.ico" alt="MetaMask" width="48" height="48" style="border-radius: 12px;">
+                    </div>
+                    <div class="wallet-info">
+                        <div class="wallet-name">MetaMask</div>
+                        <div class="wallet-status" id="metamask-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Checking...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="wallet-loading-state" id="wallet-loading-state">
                 <div class="wallet-loading-spinner">
@@ -1252,7 +1264,6 @@
         </div>
     </div>
 </div>
-
 <script>
     // Generate floating particles
     function createParticles() {
